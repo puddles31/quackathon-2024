@@ -44,7 +44,7 @@ app.post("/formsubmit", (req, res) => {
   const duration = age_of_payment - age;
 
   for (let t_duration = 0; t_duration < duration; t_duration++) {
-    for (let deposit = 100; deposit < 1000; deposit = deposit + 100) {
+    for (let deposit = 10; deposit < 10000; deposit = deposit + 10) {
       let totalValue = 0;
 
       for (let i = 0; i < t_duration * 12; i++) {
@@ -57,6 +57,16 @@ app.post("/formsubmit", (req, res) => {
       }
     }
   }
+
+  // limit string_array to 1 of each deposit value:
+  string_array = string_array.filter((item, index, self) => {
+    return (
+      index ===
+      self.findIndex((t) => {
+        return t[0] === item[0];
+      })
+    );
+  });
 
   // order string_array by years descending
   string_array.sort((a, b) => {
@@ -84,9 +94,10 @@ app.post("/formsubmit", (req, res) => {
   });
 
   const new_string_array = string_array.map((item) => {
-    return `Save £${item[0]} per month for ${item[1]} years at ${
-      item[2]
-    }% interest to get £${item[3].toFixed(2)}`;
+    // return `Save £${item[0]} per month for ${item[1]} years at ${
+    //   item[2]
+    // }% interest to get £${item[3].toFixed(2)}`;
+    return [item[0], item[1], item[2], item[3].toFixed(2)];
   });
 
   res.render("home", {
