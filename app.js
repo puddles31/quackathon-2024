@@ -34,6 +34,65 @@ app.get("/", (req, res) => {
   });
 });
 
+app.post("/formsubmit", (req, res) => {
+  const { age, age_of_payment, goal_amount, interest_rate } = req.body;
+
+  let string_array = [];
+
+  const duration = age_of_payment - age;
+
+  for (let t_duration = 0; t_duration < duration; t_duration++) {
+    for (let deposit = 100; deposit < 1000; deposit = deposit + 100) {
+      let totalValue = 0;
+
+      for (let i = 0; i < t_duration * 12; i++) {
+        totalValue += deposit;
+        totalValue += totalValue * (interest_rate / 100 / 12); // * 0.04
+      }
+
+      if (totalValue > goal_amount) {
+        string_array.push([deposit, t_duration, interest_rate, totalValue]);
+      }
+    }
+  }
+
+  // order string_array by years descending
+  string_array.sort((a, b) => {
+    return b[1] - a[1];
+  });
+
+  // order string_array by closest to goal_amount
+  string_array.sort((a, b) => {
+    return Math.abs(a[3] - goal_amount) - Math.abs(b[3] - goal_amount);
+  });
+
+  // order string_array by deposit ascending
+  string_array.sort((a, b) => {
+    return a[0] - b[0];
+  });
+
+  string_array.length = 10;
+
+  string_array.forEach((item) => {
+    console.log(
+      `Save £${item[0]} per month for ${item[1]} years at ${
+        item[2]
+      }% interest to get £${item[3].toFixed(2)}`
+    );
+  });
+
+  const new_string_array = string_array.map((item) => {
+    return `Save £${item[0]} per month for ${item[1]} years at ${
+      item[2]
+    }% interest to get £${item[3].toFixed(2)}`;
+  });
+
+  res.render("home", {
+    title: "Home",
+    data: string_array,
+  });
+});
+
 app.use((req, res) => {
   res.status(404);
   res.render("404", {
