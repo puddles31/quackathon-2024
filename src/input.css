@@ -8,6 +8,9 @@ body {
     @apply font-sans;
 }
 
-p {
-    @apply font-bold;
+.btn {
+    @apply block w-max text-center px-3.5 py-2.5 font-medium rounded;
+}
+.btn-primary {
+    @apply bg-amber-400 hover:bg-yellow-500 border border-amber-500 hover:border-yellow-600 text-neutral-100;
 }
