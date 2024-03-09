@@ -36,6 +36,10 @@ app.get("/", (req, res) => {
   });
 });
 
+function numberWithCommas(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 app.post("/formsubmit", (req, res) => {
   const { age, age_of_payment, goal_amount, interest_rate } = req.body;
 
@@ -113,7 +117,7 @@ app.post("/formsubmit", (req, res) => {
     // return `Save £${item[0]} per month for ${item[1]} years at ${
     //   item[2]
     // }% interest to get £${item[3].toFixed(2)}`;
-    return [item[0], item[1], item[2], item[3].toFixed(2)];
+    return [item[0], item[1], item[2], numberWithCommas(item[3].toFixed(2))];
   });
 
   for (let i in new_string_array) {

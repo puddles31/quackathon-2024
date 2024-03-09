@@ -43,23 +43,48 @@
           <h2 class="hide-initial text-lg mt-4 mb-4">
             In order of ease and efficiency, we recommend the following:
           </h2>
-          <div class="mb-4">
-            <p>Sort by: </p>
-            <button onclick="sortTable('monthly')" class="mt-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 pl-4 pr-2 mx-1 rounded">
-              <p>Monthly Deposit Amount <span class="align-bottom material-symbols-outlined">arrow_drop_down</span></p>
+
+          <% if (data.length !== 0) { %>
+          <div
+            class="recommended-box mb-5"
+      
+          >
+            <p class="font-bold">
+              Save £<%= data[0][0] %> per month for <%= data[0][1] %> years at
+              <%= data[0][2] %>% interest to get £<%= data[0][3] %>
+            </p>
+
+          </div>
+          <% } %>
+
+          <div class="mb-4 mt-10">
+            <p>More Saving Options</p>
+            <span class="mt-5 py-2 px-4 mx-2 rounded">Sort By</span>
+            <button
+              onclick="sortTable('monthly')"
+              class="bg-yellow-300 mt-5 hover:bg-blue-700 font-bold py-2 px-4 mx-2 rounded"
+            >
+              Monthly Deposit Amount
             </button>
-            <button onclick="sortTable('years')"   class="mt-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 pl-4 pr-2 mx-1 rounded">
-              <p>Number of Years <span class="align-bottom material-symbols-outlined">arrow_drop_down</span></p>
+            <button
+              onclick="sortTable('years')"
+              class="bg-yellow-300 mt-5 hover:bg-blue-700 font-bold py-2 px-4 mx-2 rounded"
+            >
+              Number of Years
             </button>
-            <button onclick="sortTable('total')"   class="mt-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 pl-4 pr-2 mx-1 rounded">
-              <p>Total Savings Amount <span class="align-bottom material-symbols-outlined">arrow_drop_down</span></p>
+            <button
+              onclick="sortTable('total')"
+              class="bg-yellow-300 mt-5 hover:bg-black font-bold py-2 px-4 mx-2 rounded"
+            >
+              Total Savings Amount
             </button>
           </div>
           <% } %>
 
+
           <% if (data[0]){ %>
             <div class="grid grid-cols-2">
-                <button class="tab rounded-tl-md selected" value="text">Text View</button>
+                <button class="tab rounded-tl-md selected" value="text">Simple View</button>
                 <button class="tab border-r rounded-tr-md" value="table">Table View</button>
             </div>
 
@@ -91,6 +116,7 @@
                       <% } %>
                 </table>
               </div>
+
           <% } %>
         </div>
       </div>
@@ -215,12 +241,12 @@
 
     if (attr == lastAttr) {
       isAsc = !isAsc;
-    }
-    else {
+    } else {
       isAsc = true;
     }
 
     lastAttr = attr;
+
 
     if (document.getElementById('text_view').classList.contains('hidden')) {
       // Keep looping until no more row swaps have been made
