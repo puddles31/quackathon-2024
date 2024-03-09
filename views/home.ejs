@@ -1,6 +1,6 @@
 <%- include('./partials/header.ejs') %> <%- include('./partials/nav.ejs') %>
 
-<div class="container w-1/2">
+<div class="container w-2/3">
   <div class="py-16">
     <div>
       <div class="text-center">
@@ -10,7 +10,7 @@
         </h2>
       </div>
 
-      <div class="grid grid-cols-3 gap-x-24 mt-8">
+      <div class="grid grid-cols-3 gap-x-16 mt-8">
         <form method="post" action="/formsubmit">
           <label>Child's Age</label>
           <input type="number" name="age" min="0" />
@@ -24,10 +24,7 @@
           <label class="mt-5">Interest Rate (%)</label>
           <input type="number" name="interest_rate" min="0" max="20" />
 
-          <button
-            type="submit"
-            class="mt-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-          >
+          <button type="submit" class="mt-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
             Submit
           </button>
         </form>
@@ -41,9 +38,17 @@
           <h2 class="text-lg mt-4 mb-4">
             In order of ease and efficiency, we recommend the following:
           </h2>
+
+          <div class="mb-4">
+            <p>Sort by: </p>
+            <button onclick="sortTable('monthly')" class="mt-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mx-2 rounded">Monthly Deposit Amount</button>
+            <button onclick="sortTable('years')"   class="mt-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mx-2 rounded">Number of Years</button>
+            <button onclick="sortTable('total')"   class="mt-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mx-2 rounded">Total Savings Amount</button>
+          </div>
+
           <% for (const i in data) { %>
           <div class="display-box">
-            <p>
+            <p data-monthly="<%= data[i][0] %>" data-years="<%= data[i][1] %>" data-total="<%= data[i][3] %>">
               Save £<%= data[i][0] %> per month for <%= data[i][1] %> years at
               <%= data[i][2] %>% interest to get £<%= data[i][3] %>
             </p>
@@ -54,5 +59,53 @@
     </div>
   </div>
 </div>
+
+<script>
+  let isAsc = true;
+  let lastAttr = "";
+
+  function sortTable(attr) {
+    var rows, swapping, i, x, y, shouldSwap;
+    swapping = true;
+
+    if (attr == lastAttr) {
+      isAsc = !isAsc;
+    }
+    else {
+      isAsc = true;
+    }
+
+    lastAttr = attr;
+
+    // Keep looping until no more row swaps have been made
+    while (swapping) {
+      swapping = false;
+      rows = document.querySelectorAll(".display-box");
+      
+      // Loop through all rows
+      for (i = 0; i < rows.length - 1; i++) {
+        shouldSwap = false;
+        
+        /* Get the two elements you want to compare,
+        one from current row and one from the next: */
+        x = rows[i].getElementsByTagName("p")[0];
+        y = rows[i + 1].getElementsByTagName("p")[0];
+
+        // Check if the two rows should switch place
+        if ((isAsc && parseFloat(x.dataset[`${attr}`]) > parseFloat(y.dataset[`${attr}`])) || (!isAsc && parseFloat(x.dataset[`${attr}`]) < parseFloat(y.dataset[`${attr}`]))) {
+          // If so, mark as a switch and break the loop
+          shouldSwap = true;
+          break;
+        }
+      }
+      if (shouldSwap) {
+        /* If a switch has been marked, make the switch
+        and mark that a switch has been done: */
+        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+        swapping = true;
+      }
+    }
+  }
+</script>
 
 <%- include('./partials/footer.ejs') %>
