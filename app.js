@@ -6,7 +6,7 @@ const crypto = require("crypto");
 const app = express();
 app.set("view engine", "ejs");
 
-app.use("/resources", express.static(__dirname + "/resources"));
+// app.use("/resources", express.static(__dirname + "/resources"));
 app.use("/dist", express.static(__dirname + "/dist"));
 app.use(express.urlencoded());
 app.use(express.json());
