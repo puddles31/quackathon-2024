@@ -48,9 +48,9 @@ app.post("/formsubmit", (req, res) => {
     for (let deposit = 10; deposit < 10000; deposit = deposit + 10) {
       let totalValue = 0;
 
-      for (let i = 1; i <= t_duration; i++) {
+      for (let i = 1; i <= t_duration * 12; i++) {
         totalValue += deposit;
-        totalValue += totalValue * (interest_rate / 100); // * 0.04
+        totalValue += totalValue * (interest_rate / 100 / 12); // * 0.04
 
         graphData.push(totalValue);
       }
@@ -118,13 +118,13 @@ app.post("/formsubmit", (req, res) => {
   for (let i in new_string_array) {
     let graphData = [];
     let totalValue = 0;
-    for (let j = 0; j <= new_string_array[i][1]; j++) {
+    for (let j = 1; j <= new_string_array[i][1] * 12; j++) {
       for (let k = 1; k <= j; k++) {
         if (totalValue > goal_amount) {
           break;
         }
         totalValue += new_string_array[i][0];
-        totalValue += totalValue * (new_string_array[i][2] / 100); // * 0.04
+        totalValue += totalValue * (new_string_array[i][2] / 100 / 12); // * 0.04
         graphData.push(totalValue);
       }
     }
