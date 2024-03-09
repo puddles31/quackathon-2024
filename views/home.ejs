@@ -24,7 +24,10 @@
           <label class="mt-5">Interest Rate (%)</label>
           <input type="number" name="interest_rate" min="0" max="20" />
 
-          <button type="submit" class="mt-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+          <button
+            type="submit"
+            class="mt-5 bg-yellow-300 hover:bg-yellow-400 font-medium py-2 px-4 rounded w-full"
+          >
             Submit
           </button>
         </form>
@@ -48,16 +51,152 @@
           </div>
           <% } %>
 
-          <% for (const i in data) { %>
-          <div class="display-box">
-            <p data-monthly="<%= data[i][0] %>" data-years="<%= data[i][1] %>" data-total="<%= data[i][3] %>">
-              Save £<%= data[i][0] %> per month for <%= data[i][1] %> years at
-              <%= data[i][2] %>% interest to get £<%= data[i][3] %>
-            </p>
-          </div>
+          <% if (data[0]){ %>
+            <div class="grid grid-cols-2">
+                <button class="tab rounded-tl-md selected" value="text">Text View</button>
+                <button class="tab border-r rounded-tr-md" value="table">Table View</button>
+            </div>
+
+            <div id="text_view">
+                <% for (const i in data) { %>
+                    <div class="display-box">
+                      <p data-monthly="<%= data[i][0] %>" data-years="<%= data[i][1] %>" data-total="<%= data[i][3] %>">
+                        Save <span class="font-medium">£<%= data[i][0] %></span> per month for <%= data[i][1] %> <%- data[i][1] > 1 ? 'years':'year' %> at
+                        <%= data[i][2] %>% interest to get <span class="font-medium">£<%= data[i][3] %></span>
+                      </p>
+                    </div>
+                    <% } %>
+              </div>
+    
+              <div id="table_view" class="hidden">
+                <div class="border-gray-800 border-t border-l border-r px-2 py-0.5 font-semibold text-center text-sm italic"><%= data[0][2] %>% Interest Rate</div>
+                <table class="w-full">
+                  <tr>
+                      <th>Timespan</th>
+                      <th>Saving per Month</th>
+                      <th>Return</th>
+                  </tr>
+                  <tr>
+                      <% for (const i in data) { %>
+                          <tr>
+                              <td><%= data[i][1] %> years</td>
+                              <td>£<%= data[i][0] %></td>
+                              <td>£<%= data[i][3] %></td>
+                          </tr>
+                      <% } %>
+                  </tr>
+                </table>
+              </div>
           <% } %>
         </div>
       </div>
+    </div>
+
+    <div class="mt-16">
+        <canvas id="chart1"></canvas>
+        
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script>
+            /*const ctx2 = document.getElementById('chart1');
+            var data = <%- JSON.stringify(data) %>;
+            console.log(data);
+            
+
+            new Chart(ctx2, {
+            type: 'bar',
+            data: {
+                dataset: [{
+                    <% for (const i in data) { %>
+                        type: 'bar',
+                        label: 'X% Interest Rate',
+                        data: [
+                            <% for (const k in data) { %>
+                                '<% data[i][0] %>'
+                            <% } %>
+                        ],
+                        backgroundColor: '#b50000',
+                        borderColor: '#b50000'
+                        }, {
+                    <% } %>
+                }],
+
+                labels: ['9', '10', '11', '12', '13', '14', '15', '16', '17', '18'],
+            },
+            options: {
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Age',
+                            font: {
+                                size: 14
+                            }
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Investment (£)',
+                            font: {
+                                size: 14
+                            }
+                        }
+                    }
+                }
+            }
+            });
+
+
+
+
+
+            const ctx = document.getElementById('chart1');
+
+            new Chart(ctx, {
+            type: 'line',
+            data: {
+                datasets: [{
+                    type: 'line',
+                    label: 'X% Interest Rate',
+                    data: [20, 30, 50, 75, 120, 180, 250, 340, 480, 620],
+                    backgroundColor: '#b50000',
+                    borderColor: '#b50000'
+                }, {
+                    type: 'line',
+                    label: 'S&P 500',
+                    data: [20, 72, 166, 56, 195, 157, 268, 452, 401, 722],
+                    backgroundColor: '#112766',
+                    borderColor: '#112766'
+
+                }],
+                labels: ['9', '10', '11', '12', '13', '14', '15', '16', '17', '18'],
+            },
+            options: {
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Age',
+                            font: {
+                                size: 14
+                            }
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Investment (£)',
+                            font: {
+                                size: 14
+                            }
+                        }
+                    }
+                }
+            }
+            });*/
+        </script>
     </div>
   </div>
 </div>
@@ -111,3 +250,29 @@
 </script>
 
 <%- include('./partials/footer.ejs') %>
+
+
+<script>
+    var tabs = Array.from(document.getElementsByClassName('tab'));
+    const text_view = document.getElementById('text_view');
+    const table_view = document.getElementById('table_view');
+    
+    tabs.forEach((tab) => {
+        tab.addEventListener('click', function(){
+            var view = this.value;
+            tabs.forEach((tab_btn) => {
+                tab_btn.classList.remove('selected');
+            })
+
+            if (view == 'text'){
+                text_view.classList.remove('hidden');
+                table_view.classList.add('hidden');
+                tab.classList.add('selected');
+            } else {
+                table_view.classList.remove('hidden');
+                text_view.classList.add('hidden');
+                tab.classList.add('selected');
+            }
+        })
+    })
+</script>
