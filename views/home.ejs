@@ -1,39 +1,40 @@
-<%- include('./partials/header.ejs') %>
+<%- include('./partials/header.ejs') %> <%- include('./partials/nav.ejs') %>
 
 <div class="container w-1/2">
-    <div class="py-16">
-        <div>
-            <div class="text-center">
-                <h1 class="text-5xl font-semibold">Bask.it</h1>
-                <h2 class="text-lg mt-4">A savings planner for families</h2>
-            </div>
-            
-            <div class="grid grid-cols-3 gap-x-24 mt-8">
-                <div>
-                    <label>Child's Age</label>
-                    <input type="number" name="age" min="0">
+  <div class="py-16">
+    <div>
+      <div class="text-center">
+        <h1 class="text-5xl font-semibold">Bask.it</h1>
+        <h2 class="text-lg mt-4">A savings planner for families</h2>
+      </div>
 
-                    <label class="mt-5">Age of Payment</label>
-                    <input type="number" name="age_of_payment" min="0">
+      <div class="grid grid-cols-3 gap-x-24 mt-8">
+        <form method="post" action="/formsubmit">
+          <label>Child's Age</label>
+          <input type="number" name="age" min="0" />
 
-                    <label class="mt-5">Goal Amount</label>
-                    <input type="number" name="goal_amount" min="0">
-                </div>
-                <div class="col-span-2">
-                    <div class="display-box"></div>
-                    <div class="display-box"></div>
-                    <div class="display-box"></div>
-                    <div class="display-box"></div>
-                    <div class="display-box"></div>
-                    <div class="display-box"></div>
-                    <div class="display-box"></div>
-                    <div class="display-box"></div>
-                    <div class="display-box"></div>
-                    <div class="display-box"></div>
-                </div>
-            </div>
+          <label class="mt-5">Age of Payment</label>
+          <input type="number" name="age_of_payment" min="0" />
+
+          <label class="mt-5">Goal Amount</label>
+          <input type="number" name="goal_amount" min="0" />
+
+          <label class="mt-5">Interest Rate</label>
+          <input type="number" name="interest_rate" min="0" />
+
+          <button
+            type="submit"
+            class="mt-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          >
+            Submit
+          </button>
+        </form>
+        <div class="col-span-2">
+          <div class="display-box"></div>
         </div>
+      </div>
     </div>
+  </div>
 </div>
 
 <%- include('./partials/footer.ejs') %>
