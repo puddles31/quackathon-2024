@@ -57,3 +57,9 @@ button.tab {
 button.tab.selected {
   @apply bg-yellow-300 font-medium;
 }
+
+
+
+.hide {
+  visibility: hidden;
+}
