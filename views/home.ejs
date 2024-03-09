@@ -47,7 +47,7 @@
           <% if (data.length !== 0) { %>
           <div
             class="recommended-box mb-5"
-            style="border-width: 2px; border-color: black"
+      
           >
             <p class="font-bold">
               Save £<%= data[0][0] %> per month for <%= data[0][1] %> years at
@@ -56,8 +56,8 @@
           </div>
           <% } %>
 
-          <div class="mb-4 mt-5">
-            <p>More Options</p>
+          <div class="mb-4 mt-10">
+            <p>More Saving Options</p>
             <span class="mt-5 py-2 px-4 mx-2 rounded">Sort By</span>
             <button
               onclick="sortTable('monthly')"
@@ -83,7 +83,7 @@
 
           <% if (data[0]){ %>
             <div class="grid grid-cols-2">
-                <button class="tab rounded-tl-md selected" value="text">Text View</button>
+                <button class="tab rounded-tl-md selected" value="text">Simple View</button>
                 <button class="tab border-r rounded-tr-md" value="table">Table View</button>
             </div>
 
