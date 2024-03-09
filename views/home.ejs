@@ -24,7 +24,10 @@
           <label class="mt-5">Interest Rate (%)</label>
           <input type="number" name="interest_rate" min="0" max="20" />
 
-          <button type="submit" class="mt-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+          <button
+            type="submit"
+            class="bg-yellow-300 mt-5 hover:bg-blue-700 font-bold py-2 px-4 rounded"
+          >
             Submit
           </button>
         </form>
@@ -39,16 +42,48 @@
             In order of ease and efficiency, we recommend the following:
           </h2>
 
-          <div class="mb-4">
-            <p>Sort by: </p>
-            <button onclick="sortTable('monthly')" class="mt-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mx-2 rounded">Monthly Deposit Amount</button>
-            <button onclick="sortTable('years')"   class="mt-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mx-2 rounded">Number of Years</button>
-            <button onclick="sortTable('total')"   class="mt-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mx-2 rounded">Total Savings Amount</button>
+          <% if (data.length !== 0) { %>
+          <div
+            class="recommended-box mb-5"
+            style="border-width: 2px; border-color: black"
+          >
+            <p class="font-bold">
+              Save £<%= data[0][0] %> per month for <%= data[0][1] %> years at
+              <%= data[0][2] %>% interest to get £<%= data[0][3] %>
+            </p>
+          </div>
+          <% } %>
+
+          <div class="mb-4 mt-5">
+            <p>More Options</p>
+            <span class="mt-5 py-2 px-4 mx-2 rounded">Sort By</span>
+            <button
+              onclick="sortTable('monthly')"
+              class="bg-yellow-300 mt-5 hover:bg-blue-700 font-bold py-2 px-4 mx-2 rounded"
+            >
+              Monthly Deposit Amount
+            </button>
+            <button
+              onclick="sortTable('years')"
+              class="bg-yellow-300 mt-5 hover:bg-blue-700 font-bold py-2 px-4 mx-2 rounded"
+            >
+              Number of Years
+            </button>
+            <button
+              onclick="sortTable('total')"
+              class="bg-yellow-300 mt-5 hover:bg-black font-bold py-2 px-4 mx-2 rounded"
+            >
+              Total Savings Amount
+            </button>
           </div>
 
           <% for (const i in data) { %>
           <div class="display-box">
-            <p data-monthly="<%= data[i][0] %>" data-years="<%= data[i][1] %>" data-total="<%= data[i][3] %>">
+            <p
+              data-monthly="<%= data[i][0] %>"
+              data-years="<%= data[i][1] %>"
+              data-total="<%= data[i][3] %>"
+            >
               Save £<%= data[i][0] %> per month for <%= data[i][1] %> years at
               <%= data[i][2] %>% interest to get £<%= data[i][3] %>
             </p>
@@ -70,8 +105,7 @@
 
     if (attr == lastAttr) {
       isAsc = !isAsc;
-    }
-    else {
+    } else {
       isAsc = true;
     }
 
@@ -81,18 +115,24 @@
     while (swapping) {
       swapping = false;
       rows = document.querySelectorAll(".display-box");
-      
+
       // Loop through all rows
       for (i = 0; i < rows.length - 1; i++) {
         shouldSwap = false;
-        
+
         /* Get the two elements you want to compare,
         one from current row and one from the next: */
         x = rows[i].getElementsByTagName("p")[0];
         y = rows[i + 1].getElementsByTagName("p")[0];
 
         // Check if the two rows should switch place
-        if ((isAsc && parseFloat(x.dataset[`${attr}`]) > parseFloat(y.dataset[`${attr}`])) || (!isAsc && parseFloat(x.dataset[`${attr}`]) < parseFloat(y.dataset[`${attr}`]))) {
+        if (
+          (isAsc &&
+            parseFloat(x.dataset[`${attr}`]) >
+              parseFloat(y.dataset[`${attr}`])) ||
+          (!isAsc &&
+            parseFloat(x.dataset[`${attr}`]) < parseFloat(y.dataset[`${attr}`]))
+        ) {
           // If so, mark as a switch and break the loop
           shouldSwap = true;
           break;

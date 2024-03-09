@@ -2,41 +2,41 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;500;600;700&display=swap");
 
 body {
-    @apply font-sans;
+  @apply font-sans;
 }
 
-:focus-within { 
-    @apply outline-none;
+:focus-within {
+  @apply outline-none;
 }
 
 .btn {
-    @apply block w-max text-center px-3.5 py-2.5 font-medium rounded;
+  @apply block w-max text-center px-3.5 py-2.5 font-medium rounded;
 }
 .btn-primary {
-    @apply bg-amber-400 hover:bg-yellow-500 border border-amber-500 hover:border-yellow-600 text-neutral-100;
+  @apply bg-amber-400 hover:bg-yellow-500 border border-amber-500 hover:border-yellow-600 text-neutral-100;
 }
 
 .material-symbols-outlined {
-  font-variation-settings:
-  'FILL' 0,
-  'wght' 300,
-  'GRAD' 200,
-  'opsz' 40
+  font-variation-settings: "FILL" 0, "wght" 300, "GRAD" 200, "opsz" 40;
 }
 
 label {
-    @apply inline-block;
+  @apply inline-block;
 }
-input, textarea {
-    @apply border border-gray-500 rounded px-2 py-1 block w-full;
+input,
+textarea {
+  @apply border border-gray-500 rounded px-2 py-1 block w-full;
 }
 
 .display-box {
-    @apply border-t border-l border-r border-gray-900 px-4 py-4;
+  @apply border-t border-l border-r border-gray-900 px-4 py-4;
 }
-.display-box:last-of-type {
-    @apply border-b;
+.display-box:last-child {
+  @apply border-b;
+}
+.recommended-box {
+  @apply border-t border-l border-r border-gray-900 bg-yellow-300 px-4 py-4;
 }
