@@ -34,6 +34,22 @@ app.get("/", (req, res) => {
   });
 });
 
+app.post("/formsubmit", (req, res) => {
+  const { age, ageOfPay, goalValue } = req.body;
+
+  const duration = ageOfPay - age;
+  let totalValue = 0;
+  let depositValue = 100;
+  let rate = 4;
+
+  for (let i = 0; i < duration; i++) {
+    totalValue += depositValue;
+    totalValue += totalValue * (4 / 100); // * 0.04
+  }
+
+  console.log(totalValue);
+});
+
 app.use((req, res) => {
   res.status(404);
   res.render("404", {
