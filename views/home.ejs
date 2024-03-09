@@ -43,17 +43,47 @@
           <h2 class="hide-initial text-lg mt-4 mb-4">
             In order of ease and efficiency, we recommend the following:
           </h2>
-          <div class="mb-4">
-            <p>Sort by: </p>
-            <button onclick="sortTable('monthly')" class="mt-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mx-2 rounded">Monthly Deposit Amount</button>
-            <button onclick="sortTable('years')"   class="mt-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mx-2 rounded">Number of Years</button>
-            <button onclick="sortTable('total')"   class="mt-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mx-2 rounded">Total Savings Amount</button>
+
+          <% if (data.length !== 0) { %>
+          <div
+            class="recommended-box mb-5"
+      
+          >
+            <p class="font-bold">
+              Save £<%= data[0][0] %> per month for <%= data[0][1] %> years at
+              <%= data[0][2] %>% interest to get £<%= data[0][3] %>
+            </p>
           </div>
           <% } %>
 
+          <div class="mb-4 mt-10">
+            <p>More Saving Options</p>
+            <span class="mt-5 py-2 px-4 mx-2 rounded">Sort By</span>
+            <button
+              onclick="sortTable('monthly')"
+              class="bg-yellow-300 mt-5 hover:bg-blue-700 font-bold py-2 px-4 mx-2 rounded"
+            >
+              Monthly Deposit Amount
+            </button>
+            <button
+              onclick="sortTable('years')"
+              class="bg-yellow-300 mt-5 hover:bg-blue-700 font-bold py-2 px-4 mx-2 rounded"
+            >
+              Number of Years
+            </button>
+            <button
+              onclick="sortTable('total')"
+              class="bg-yellow-300 mt-5 hover:bg-black font-bold py-2 px-4 mx-2 rounded"
+            >
+              Total Savings Amount
+            </button>
+          </div>
+          <% } %>
+
+
           <% if (data[0]){ %>
             <div class="grid grid-cols-2">
-                <button class="tab rounded-tl-md selected" value="text">Text View</button>
+                <button class="tab rounded-tl-md selected" value="text">Simple View</button>
                 <button class="tab border-r rounded-tr-md" value="table">Table View</button>
             </div>
 
@@ -87,6 +117,7 @@
                   </tr>
                 </table>
               </div>
+
           <% } %>
         </div>
       </div>
@@ -211,8 +242,7 @@
 
     if (attr == lastAttr) {
       isAsc = !isAsc;
-    }
-    else {
+    } else {
       isAsc = true;
     }
 
@@ -222,18 +252,24 @@
     while (swapping) {
       swapping = false;
       rows = document.querySelectorAll(".display-box");
-      
+
       // Loop through all rows
       for (i = 0; i < rows.length - 1; i++) {
         shouldSwap = false;
-        
+
         /* Get the two elements you want to compare,
         one from current row and one from the next: */
         x = rows[i].getElementsByTagName("p")[0];
         y = rows[i + 1].getElementsByTagName("p")[0];
 
         // Check if the two rows should switch place
-        if ((isAsc && parseFloat(x.dataset[`${attr}`]) > parseFloat(y.dataset[`${attr}`])) || (!isAsc && parseFloat(x.dataset[`${attr}`]) < parseFloat(y.dataset[`${attr}`]))) {
+        if (
+          (isAsc &&
+            parseFloat(x.dataset[`${attr}`]) >
+              parseFloat(y.dataset[`${attr}`])) ||
+          (!isAsc &&
+            parseFloat(x.dataset[`${attr}`]) < parseFloat(y.dataset[`${attr}`]))
+        ) {
           // If so, mark as a switch and break the loop
           shouldSwap = true;
           break;
