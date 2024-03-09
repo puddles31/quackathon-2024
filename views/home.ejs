@@ -42,9 +42,15 @@
           </h2>
           <div class="mb-4">
             <p>Sort by: </p>
-            <button onclick="sortTable('monthly')" class="mt-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mx-2 rounded">Monthly Deposit Amount</button>
-            <button onclick="sortTable('years')"   class="mt-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mx-2 rounded">Number of Years</button>
-            <button onclick="sortTable('total')"   class="mt-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mx-2 rounded">Total Savings Amount</button>
+            <button onclick="sortTable('monthly')" class="mt-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 pl-4 pr-2 mx-1 rounded">
+              <p>Monthly Deposit Amount <span class="align-bottom material-symbols-outlined">arrow_drop_down</span></p>
+            </button>
+            <button onclick="sortTable('years')"   class="mt-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 pl-4 pr-2 mx-1 rounded">
+              <p>Number of Years <span class="align-bottom material-symbols-outlined">arrow_drop_down</span></p>
+            </button>
+            <button onclick="sortTable('total')"   class="mt-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 pl-4 pr-2 mx-1 rounded">
+              <p>Total Savings Amount <span class="align-bottom material-symbols-outlined">arrow_drop_down</span></p>
+            </button>
           </div>
           <% } %>
 
