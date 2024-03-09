@@ -38,5 +38,22 @@ textarea {
   @apply border-b;
 }
 .recommended-box {
-  @apply border-t border-l border-r border-gray-900 bg-yellow-300 px-4 py-4;
+  @apply bg-yellow-300 px-4 py-4 rounded-xl;
+}
+
+table th {
+  @apply border-gray-800 border-t border-l border-r px-2 py-1 font-medium;
+}
+table td {
+  @apply border-gray-800 border-t border-l border-r px-2 py-1;
+}
+table {
+  @apply border-gray-800 border-b text-center;
+}
+
+button.tab {
+  @apply border-l border-t border-gray-800 px-3 py-2;
+}
+button.tab.selected {
+  @apply bg-yellow-300 font-medium;
 }
