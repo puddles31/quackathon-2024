@@ -40,16 +40,20 @@ app.post("/formsubmit", (req, res) => {
   const { age, age_of_payment, goal_amount, interest_rate } = req.body;
 
   let string_array = [];
+  let total_graph_data_array = [];
 
   const duration = age_of_payment - age;
 
-  for (let t_duration = 0; t_duration < duration; t_duration++) {
+  for (let t_duration = 0; t_duration <= duration; t_duration++) {
+    let graphData = [];
     for (let deposit = 10; deposit < 10000; deposit = deposit + 10) {
       let totalValue = 0;
 
-      for (let i = 0; i < t_duration * 12; i++) {
+      for (let i = 1; i <= t_duration; i++) {
         totalValue += deposit;
-        totalValue += totalValue * (interest_rate / 100 / 12); // * 0.04
+        totalValue += totalValue * (interest_rate / 100); // * 0.04
+
+        graphData.push(totalValue);
       }
 
       if (totalValue > goal_amount) {
@@ -58,12 +62,24 @@ app.post("/formsubmit", (req, res) => {
     }
   }
 
+  let without_interest = 0;
+
   // limit string_array to 1 of each deposit value:
   string_array = string_array.filter((item, index, self) => {
     return (
       index ===
       self.findIndex((t) => {
         return t[0] === item[0];
+      })
+    );
+  });
+
+  // limit string_array to 1 of each duration value:
+  string_array = string_array.filter((item, index, self) => {
+    return (
+      index ===
+      self.findIndex((t) => {
+        return t[1] === item[1];
       })
     );
   });
@@ -100,9 +116,27 @@ app.post("/formsubmit", (req, res) => {
     return [item[0], item[1], item[2], item[3].toFixed(2)];
   });
 
+  for (let i in new_string_array) {
+    let graphData = [];
+    let totalValue = 0;
+    for (let j = 0; j <= new_string_array[i][1]; j++) {
+      for (let k = 1; k <= j; k++) {
+        if (totalValue > goal_amount) {
+          break;
+        }
+        totalValue += new_string_array[i][0];
+        totalValue += totalValue * (new_string_array[i][2] / 100); // * 0.04
+        graphData.push(totalValue);
+      }
+    }
+    total_graph_data_array.push(graphData);
+  }
+  console.log(total_graph_data_array);
+
   res.render("home", {
     title: "Home",
     data: new_string_array,
+    graphData: total_graph_data_array,
   });
 });
 
