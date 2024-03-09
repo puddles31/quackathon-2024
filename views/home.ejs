@@ -5,7 +5,9 @@
     <div>
       <div class="text-center">
         <h1 class="text-5xl font-semibold">Bask.it</h1>
-        <h2 class="text-lg mt-4">A savings planner for families</h2>
+        <h2 class="text-lg mt-4">
+          A savings planner for parents and their children
+        </h2>
       </div>
 
       <div class="grid grid-cols-3 gap-x-24 mt-8">
@@ -30,7 +32,11 @@
           </button>
         </form>
         <div class="col-span-2">
-          <div class="display-box"></div>
+          <% for (const i in data) { %>
+          <div class="display-box">
+            <p><%= data[i] %></p>
+          </div>
+          <% } %>
         </div>
       </div>
     </div>

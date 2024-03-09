@@ -31,6 +31,7 @@ app.listen(port, () => {
 app.get("/", (req, res) => {
   res.render("home", {
     title: "Home",
+    data: [],
   });
 });
 
@@ -89,7 +90,7 @@ app.post("/formsubmit", (req, res) => {
 
   res.render("home", {
     title: "Home",
-    data: string_array,
+    data: new_string_array,
   });
 });
 
