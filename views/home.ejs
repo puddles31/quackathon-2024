@@ -26,7 +26,7 @@
 
           <button
             type="submit"
-            class="mt-5 bg-yellow-300 hover:bg-yellow-400 font-medium py-2 px-4 rounded w-full"
+            class="mt-5 bg-yellow-300 hover:bg-yellow-400 font-bold py-2 px-4 rounded w-full"
           >
             Submit
           </button>
@@ -58,25 +58,24 @@
           <% } %>
 
           <div class="mb-4 mt-10">
-            <p>More Saving Options</p>
-            <span class="mt-5 py-2 px-4 mx-2 rounded">Sort By</span>
+            <p>Sort By:</p>
             <button
               onclick="sortTable('monthly')"
-              class="bg-yellow-300 mt-5 hover:bg-blue-700 font-bold py-2 px-4 mx-2 rounded"
+              class="sort bg-yellow-300 mt-5 hover:bg-yellow-400 font-bold py-2 pl-4 pr-2 mx-2 rounded"
             >
-              Monthly Deposit Amount
+              Monthly Deposit Amount <span class="selected align-bottom material-symbols-outlined">arrow_drop_down</span>
             </button>
             <button
               onclick="sortTable('years')"
-              class="bg-yellow-300 mt-5 hover:bg-blue-700 font-bold py-2 px-4 mx-2 rounded"
+              class="sort bg-yellow-300 mt-5 hover:bg-yellow-400 font-bold py-2 pl-4 pr-2 mx-2 rounded"
             >
-              Number of Years
+              Number of Years <span class="hide align-bottom material-symbols-outlined">arrow_drop_down</span>
             </button>
             <button
               onclick="sortTable('total')"
-              class="bg-yellow-300 mt-5 hover:bg-black font-bold py-2 px-4 mx-2 rounded"
+              class="sort bg-yellow-300 mt-5 hover:bg-yellow-400 font-bold py-2 pl-4 pr-2 mx-2 rounded"
             >
-              Total Savings Amount
+              Total Savings Amount <span class="hide align-bottom material-symbols-outlined">arrow_drop_down</span>
             </button>
           </div>
           <% } %>
@@ -308,11 +307,19 @@
           y = rows[i + 1].getElementsByTagName("p")[0];
 
           // Check if the two rows should switch place
-          if ((isAsc && parseFloat(x.dataset[`${attr}`]) > parseFloat(y.dataset[`${attr}`])) || (!isAsc && parseFloat(x.dataset[`${attr}`]) < parseFloat(y.dataset[`${attr}`]))) {
+          if (attr == "total") {
+            if ((isAsc && parseFloat(x.dataset.total.replace(",", "")) > parseFloat(y.dataset.total.replace(",", ""))) || (!isAsc && parseFloat(x.dataset.total.replace(",", "")) < parseFloat(y.dataset.total.replace(",", "")))) {
+              // If so, mark as a switch and break the loop
+              shouldSwap = true;
+              break;
+            }
+          }
+          else if ((isAsc && parseFloat(x.dataset[`${attr}`]) > parseFloat(y.dataset[`${attr}`])) || (!isAsc && parseFloat(x.dataset[`${attr}`]) < parseFloat(y.dataset[`${attr}`]))) {
             // If so, mark as a switch and break the loop
             shouldSwap = true;
             break;
           }
+          
         }
         if (shouldSwap) {
           /* If a switch has been marked, make the switch
@@ -352,5 +359,40 @@
                 tab.classList.add('selected');
             }
         })
-    })
+    });
+    
+
+    const buttons = Array.from(document.querySelectorAll('.sort'));
+    buttons.forEach((button) => {
+        button.addEventListener('mouseenter', function(){
+            button.children[0].classList.remove('hide');
+        });
+
+        button.addEventListener('mouseleave', function(){
+            if (!button.children[0].classList.contains("selected")){
+                button.children[0].classList.add('hide');
+            }
+        });
+
+        button.addEventListener('click', function(){
+            if (button.children[0].classList.contains('selected')){
+                if (button.children[0].innerHTML == "arrow_drop_down") {
+                    button.children[0].innerHTML = "arrow_drop_up";
+                }
+                else {
+                    button.children[0].innerHTML = "arrow_drop_down";
+                }
+            }
+            else {
+                button.children[0].classList.add('selected');
+            }
+            buttons.forEach((btn) => {
+                if (btn != button){
+                    btn.children[0].classList.remove('selected');
+                    btn.children[0].classList.add('hide');
+                    btn.children[0].innerHTML = "arrow_drop_down";
+                }
+            });
+        });
+    });
 </script>
