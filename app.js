@@ -63,6 +63,25 @@ app.post("/auth", async (req, res) => {
   res.json(data.data);
 });
 
+app.get("/accounts", async (req, res) => {
+  const query = new URLSearchParams({ raw: "true" }).toString();
+
+  const accountsConfig = {
+    method: "get",
+    url: `https://api.yapily.com/accounts?${query}`,
+    headers: {
+      Authorization:
+        "Basic " +
+        Buffer.from(
+          "aeb4b47e-db4c-4adc-b23a-da1125ea99af:AXGJbNpY2mxEvIMB1pIlpu5RoONliMOS"
+        ).toString("base64"),
+    },
+  };
+
+  const data = await axios(accountsConfig);
+  res.json(data.data);
+});
+
 app.use((req, res) => {
   res.status(404);
   res.render("404", {
