@@ -146,6 +146,13 @@ app.get("/accountData", async (req, res) => {
   res.json(data.data);
 });
 
+app.get('/parent', (req, res) => {
+    res.render('parent', {
+        title: 'Parent Account'
+    })
+});
+
+
 app.use((req, res) => {
   res.status(404);
   res.render("404", {
