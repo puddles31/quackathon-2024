@@ -82,7 +82,6 @@
                       <th>Saving per Month</th>
                       <th>Return</th>
                   </tr>
-                  <tr>
                       <% for (const i in data) { %>
                           <tr>
                               <td><%= data[i][1] %> years</td>
@@ -90,7 +89,6 @@
                               <td>£<%= data[i][3] %></td>
                           </tr>
                       <% } %>
-                  </tr>
                 </table>
               </div>
           <% } %>
@@ -224,34 +222,82 @@
 
     lastAttr = attr;
 
-    // Keep looping until no more row swaps have been made
-    while (swapping) {
-      swapping = false;
-      rows = document.querySelectorAll(".display-box");
-      
-      // Loop through all rows
-      for (i = 0; i < rows.length - 1; i++) {
-        shouldSwap = false;
+    if (document.getElementById('text_view').classList.contains('hidden')) {
+      // Keep looping until no more row swaps have been made
+      while (swapping) {
+        swapping = false;
+        rows = document.querySelectorAll("table tr:not(:first-child)");
         
-        /* Get the two elements you want to compare,
-        one from current row and one from the next: */
-        x = rows[i].getElementsByTagName("p")[0];
-        y = rows[i + 1].getElementsByTagName("p")[0];
+        // Loop through all rows
+        for (i = 0; i < rows.length - 1; i++) {
+          shouldSwap = false;
+          
+          /* Get the two elements you want to compare,
+          one from current row and one from the next: */
 
-        // Check if the two rows should switch place
-        if ((isAsc && parseFloat(x.dataset[`${attr}`]) > parseFloat(y.dataset[`${attr}`])) || (!isAsc && parseFloat(x.dataset[`${attr}`]) < parseFloat(y.dataset[`${attr}`]))) {
-          // If so, mark as a switch and break the loop
-          shouldSwap = true;
-          break;
+          switch (attr) {
+            case "years":
+              x = rows[i].getElementsByTagName("td")[0].innerHTML.replace(" years", "");
+              y = rows[i + 1].getElementsByTagName("td")[0].innerHTML.replace(" years", "");
+              break;
+            case "monthly":
+              x = rows[i].getElementsByTagName("td")[1].innerHTML.replace("£", "");
+              y = rows[i + 1].getElementsByTagName("td")[1].innerHTML.replace("£", "");
+              break;
+            case "total":
+              x = rows[i].getElementsByTagName("td")[2].innerHTML.replace("£", "");
+              y = rows[i + 1].getElementsByTagName("td")[2].innerHTML.replace("£", "");
+              break;
+          }
+          
+
+          // Check if the two rows should switch place
+          if ((isAsc && parseFloat(x) > parseFloat(y)) || (!isAsc && parseFloat(x) < parseFloat(y))) {
+            // If so, mark as a switch and break the loop
+            shouldSwap = true;
+            break;
+          }
+        }
+        if (shouldSwap) {
+          /* If a switch has been marked, make the switch
+          and mark that a switch has been done: */
+          rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+          swapping = true;
         }
       }
-      if (shouldSwap) {
-        /* If a switch has been marked, make the switch
-        and mark that a switch has been done: */
-        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-        swapping = true;
+    }
+    else {
+      // Keep looping until no more row swaps have been made
+      while (swapping) {
+        swapping = false;
+        rows = document.querySelectorAll(".display-box");
+        
+        // Loop through all rows
+        for (i = 0; i < rows.length - 1; i++) {
+          shouldSwap = false;
+          
+          /* Get the two elements you want to compare,
+          one from current row and one from the next: */
+          x = rows[i].getElementsByTagName("p")[0];
+          y = rows[i + 1].getElementsByTagName("p")[0];
+
+          // Check if the two rows should switch place
+          if ((isAsc && parseFloat(x.dataset[`${attr}`]) > parseFloat(y.dataset[`${attr}`])) || (!isAsc && parseFloat(x.dataset[`${attr}`]) < parseFloat(y.dataset[`${attr}`]))) {
+            // If so, mark as a switch and break the loop
+            shouldSwap = true;
+            break;
+          }
+        }
+        if (shouldSwap) {
+          /* If a switch has been marked, make the switch
+          and mark that a switch has been done: */
+          rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+          swapping = true;
+        }
       }
     }
+
+    
   }
 </script>
 
