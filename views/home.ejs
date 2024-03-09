@@ -1,24 +1,30 @@
 <%- include('./partials/header.ejs') %>
 
 <div class="container h-screen">
-    <div class="py-16">
-        <div class="text-center">
-            <h1 class="text-5xl font-semibold">Bask.it</h1>
-            <h2 class="text-lg mt-4">A savings planner for families</h2>
-        </div>
-    
-        <div class="grid grid-cols-2 text-center mt-8">
-            <div class="border-r py-16">
-                <h4 class="text-3xl font-semibold">Sign Up</h4>
-                <a href="/sign-up" class="btn btn-primary mx-auto mt-20">Click Here to Create an Account</a>
-            </div>
-            <div class="py-16">
-                <h4 class="text-3xl font-semibold">Sign In</h4>
-                <a href="/login/parent" class="btn btn-primary mx-auto mt-20">Sign into a Parent Account</a>
-                <a href="/login/child" class="btn btn-primary mx-auto mt-8">Sign into a Child Account</a>
-            </div>
-        </div>
+  <div class="py-16">
+    <div class="text-center">
+      <h1 class="text-5xl font-semibold">Bask.it</h1>
+      <h2 class="text-lg mt-4">A savings planner for families</h2>
     </div>
+
+    <div class="grid grid-cols-2 text-center mt-8">
+      <div class="border-r py-16">
+        <h4 class="text-3xl font-semibold">Sign Up</h4>
+        <a href="/sign-up" class="btn btn-primary mx-auto mt-20"
+          >Click Here to Create an Account</a
+        >
+      </div>
+      <div class="py-16">
+        <h4 class="text-3xl font-semibold">Sign In</h4>
+        <a href="/parent-login" class="btn btn-primary mx-auto mt-20"
+          >Sign into a Parent Account</a
+        >
+        <a href="/child-login" class="btn btn-primary mx-auto mt-8"
+          >Sign into a Child Account</a
+        >
+      </div>
+    </div>
+  </div>
 </div>
 
 <%- include('./partials/footer.ejs') %>
