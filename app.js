@@ -138,7 +138,7 @@ app.post("/formsubmit", (req, res) => {
   console.log(total_graph_data_array);
 
   res.render("home", {
-    title: "Home",
+    title: "Savings Planner",
     data: new_string_array,
     graphData: total_graph_data_array,
   });
