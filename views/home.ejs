@@ -31,10 +31,18 @@
             Submit
           </button>
         </form>
+
         <div class="col-span-2">
+          <h2 class="text-lg mt-4 mb-4">
+            Our Bask.it algorithm calculates the most manageable savings plan
+            for you whilst still prioritizing the lowest time period.
+          </h2>
           <% for (const i in data) { %>
           <div class="display-box">
-            <p><%= data[i] %></p>
+            <p>
+              Save £<%= data[i][0] %> per month for <%= data[i][1] %> years at
+              <%= data[i][2] %>% interest to get £<%= data[i][3] %>
+            </p>
           </div>
           <% } %>
         </div>
