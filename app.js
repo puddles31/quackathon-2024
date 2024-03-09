@@ -17,7 +17,11 @@ app.get('/', (req, res) => {
     })
 })
 
-
+app.get('/parent', (req, res) => {
+    res.render('parent', {
+        title: 'Parent Account'
+    })
+})
 
 app.use((req, res) => {
     res.status(404);
