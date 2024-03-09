@@ -61,19 +61,25 @@
             <p>Sort By:</p>
             <button
               onclick="sortTable('monthly')"
+
               class="sort bg-yellow-300 mt-5 hover:bg-yellow-400 font-bold py-2 pl-4 pr-2 mx-2 rounded"
+
             >
               Monthly Deposit Amount <span class="selected align-bottom material-symbols-outlined">arrow_drop_down</span>
             </button>
             <button
               onclick="sortTable('years')"
+
               class="sort bg-yellow-300 mt-5 hover:bg-yellow-400 font-bold py-2 pl-4 pr-2 mx-2 rounded"
+
             >
               Number of Years <span class="hide align-bottom material-symbols-outlined">arrow_drop_down</span>
             </button>
             <button
               onclick="sortTable('total')"
+
               class="sort bg-yellow-300 mt-5 hover:bg-yellow-400 font-bold py-2 pl-4 pr-2 mx-2 rounded"
+
             >
               Total Savings Amount <span class="hide align-bottom material-symbols-outlined">arrow_drop_down</span>
             </button>
@@ -126,37 +132,43 @@
         
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script>
-            /*const ctx2 = document.getElementById('chart1');
-            var data = <%- JSON.stringify(data) %>;
-            console.log(data);
-            
+            const colours = ['Crimson', 'RoyalBlue', 'LimeGreen', 'Yellow', 'HotPink', 'DarkOrange', 'Orchid', 'ForestGreen', 'Aqua', 'Peru']
 
+            const ctx2 = document.getElementById('chart1');
+            var graphData = <%- JSON.stringify(graphData) %>;
+            
             new Chart(ctx2, {
-            type: 'bar',
+            type: 'line',
             data: {
-                dataset: [{
-                    <% for (const i in data) { %>
-                        type: 'bar',
-                        label: 'X% Interest Rate',
+                datasets: [{
+                    <% for (const i in graphData) { %>
+                        type: 'line',
+                        label: '£<%= data[i][0] %>',
                         data: [
-                            <% for (const k in data) { %>
-                                '<% data[i][0] %>'
+                            <% for (const k in graphData[i]) { %>
+                                <%= graphData[i][k] %>,
                             <% } %>
                         ],
-                        backgroundColor: '#b50000',
-                        borderColor: '#b50000'
-                        }, {
+                        backgroundColor: colours[<%= i %>],
+                        borderColor: colours[<%= i %>]
+                        <% if (i < graphData.length-1) { %>
+                            }, {
+                        <% } %>
                     <% } %>
                 }],
 
-                labels: ['9', '10', '11', '12', '13', '14', '15', '16', '17', '18'],
+                labels: [
+                    <% for (const i in graphData[0]) { %>
+                        '<%= i %>', 
+                    <% } %>
+                ]
             },
             options: {
                 scales: {
                     x: {
                         title: {
                             display: true,
-                            text: 'Age',
+                            text: 'Months',
                             font: {
                                 size: 14
                             }
@@ -166,7 +178,7 @@
                         beginAtZero: true,
                         title: {
                             display: true,
-                            text: 'Investment (£)',
+                            text: 'Value (£)',
                             font: {
                                 size: 14
                             }
@@ -175,56 +187,6 @@
                 }
             }
             });
-
-
-
-
-
-            const ctx = document.getElementById('chart1');
-
-            new Chart(ctx, {
-            type: 'line',
-            data: {
-                datasets: [{
-                    type: 'line',
-                    label: 'X% Interest Rate',
-                    data: [20, 30, 50, 75, 120, 180, 250, 340, 480, 620],
-                    backgroundColor: '#b50000',
-                    borderColor: '#b50000'
-                }, {
-                    type: 'line',
-                    label: 'S&P 500',
-                    data: [20, 72, 166, 56, 195, 157, 268, 452, 401, 722],
-                    backgroundColor: '#112766',
-                    borderColor: '#112766'
-
-                }],
-                labels: ['9', '10', '11', '12', '13', '14', '15', '16', '17', '18'],
-            },
-            options: {
-                scales: {
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'Age',
-                            font: {
-                                size: 14
-                            }
-                        }
-                    },
-                    y: {
-                        beginAtZero: true,
-                        title: {
-                            display: true,
-                            text: 'Investment (£)',
-                            font: {
-                                size: 14
-                            }
-                        }
-                    }
-                }
-            }
-            });*/
         </script>
     </div>
   </div>
