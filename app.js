@@ -152,6 +152,18 @@ app.get('/parent', (req, res) => {
     })
 });
 
+app.get('/', (req, res) => {
+    res.render('home', {
+        title: 'Home'
+    });
+});
+
+app.get('/sign-up', (req, res) => {
+    res.render('sign_up', {
+        title: 'Sign Up'
+    });
+});
+
 
 app.use((req, res) => {
   res.status(404);

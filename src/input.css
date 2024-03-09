@@ -8,6 +8,10 @@ body {
     @apply font-sans;
 }
 
+:focus-within { 
+    @apply outline-none;
+}
+
 .btn {
     @apply block w-max text-center px-3.5 py-2.5 font-medium rounded;
 }
@@ -21,4 +25,11 @@ body {
   'wght' 300,
   'GRAD' 200,
   'opsz' 40
+}
+
+label {
+    @apply inline-block;
+}
+input, textarea {
+    @apply border rounded  px-2 py-1 block w-full;
 }
