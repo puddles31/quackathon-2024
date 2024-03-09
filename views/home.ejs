@@ -62,19 +62,19 @@
             <span class="mt-5 py-2 px-4 mx-2 rounded">Sort By</span>
             <button
               onclick="sortTable('monthly')"
-              class="bg-yellow-300 mt-5 hover:bg-blue-700 font-bold py-2 px-4 mx-2 rounded"
+              class="bg-yellow-300 mt-5 hover:bg-yellow-400 font-bold py-2 px-4 mx-2 rounded"
             >
               Monthly Deposit Amount
             </button>
             <button
               onclick="sortTable('years')"
-              class="bg-yellow-300 mt-5 hover:bg-blue-700 font-bold py-2 px-4 mx-2 rounded"
+              class="bg-yellow-300 mt-5 hover:bg-yellow-400 font-bold py-2 px-4 mx-2 rounded"
             >
               Number of Years
             </button>
             <button
               onclick="sortTable('total')"
-              class="bg-yellow-300 mt-5 hover:bg-black font-bold py-2 px-4 mx-2 rounded"
+              class="bg-yellow-300 mt-5 hover:bg-yellow-400 font-bold py-2 px-4 mx-2 rounded"
             >
               Total Savings Amount
             </button>
@@ -127,30 +127,37 @@
         
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script>
-            /*const ctx2 = document.getElementById('chart1');
-            var data = <%- JSON.stringify(data) %>;
-            console.log(data);
-            
+            const colours = ['Crimson', 'RoyalBlue', 'LimeGreen', 'Yellow']
 
+            const ctx2 = document.getElementById('chart1');
+            var graphData = <%- JSON.stringify(graphData) %>;
+            
             new Chart(ctx2, {
-            type: 'bar',
+            type: 'line',
             data: {
-                dataset: [{
-                    <% for (const i in data) { %>
-                        type: 'bar',
-                        label: 'X% Interest Rate',
+                datasets: [{
+                    <% for (const i in graphData) { %>
+                        type: 'line',
+                        label: '<%= data[i][1] %> <%- data[i][1] > 1 ? 'Years':'Year' %>',
                         data: [
-                            <% for (const k in data) { %>
-                                '<% data[i][0] %>'
+                            <% for (const k in graphData[i]) { %>
+                                <%= graphData[i][k] %>,
                             <% } %>
                         ],
-                        backgroundColor: '#b50000',
-                        borderColor: '#b50000'
-                        }, {
+                        backgroundColor: colours[<%= i %>],
+                        borderColor: colours[<%= i %>]
+                        <% if (i < graphData.length-1) { %>
+                            }, {
+                        <% } %>
                     <% } %>
                 }],
 
-                labels: ['9', '10', '11', '12', '13', '14', '15', '16', '17', '18'],
+                labels: [
+                    <% for (const i in graphData[0]) { %>
+                        '<%= i %> months', 
+                    <% } %>
+                ]
+                //labels: ['9', '10', '11', '12', '13', '14', '15', '16', '17', '18'],
             },
             options: {
                 scales: {
@@ -167,7 +174,7 @@
                         beginAtZero: true,
                         title: {
                             display: true,
-                            text: 'Investment (£)',
+                            text: 'Value (£)',
                             font: {
                                 size: 14
                             }
@@ -176,12 +183,12 @@
                 }
             }
             });
+    
 
 
 
 
-
-            const ctx = document.getElementById('chart1');
+            /*const ctx = document.getElementById('chart1');
 
             new Chart(ctx, {
             type: 'line',
