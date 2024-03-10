@@ -71,7 +71,7 @@
       <div class="recommended-box mb-5">
         <p class="font-semibold">
           Save £<%= data[0][0] %> per month for <%= data[0][1] %> years at <%=
-          data[0][2] %>% interest to get £<%= data[0][4] %>
+          data[0][2] %>% interest to get £<%= data[0][4] %> (£<%= (parseFloat(data[0][3]) - (parseFloat(data[0][0]) * 12 * parseFloat(data[0][1]))).toFixed(2) %> gained from interest & bonus)
         </p>
       </div>
       <% } %>
@@ -129,7 +129,8 @@
             Save <span class="font-medium">£<%= data[i][0] %></span> per month
             for <%= data[i][1] %> <%- data[i][1] > 1 ? 'years':'year' %> at <%=
             data[i][2] %>% interest to get
-            <span class="font-medium">£<%= data[i][4] %></span>
+            <span class="font-medium">£<%= data[i][4] %></span> 
+            (£<%= (parseFloat(data[i][3]) - (parseFloat(data[i][0]) * 12 * parseFloat(data[i][1]))).toFixed(2) %> gained from interest & bonus)
           </p>
         </div>
         <% } %>
@@ -229,7 +230,13 @@
                           }
                       }
                   }
-              }
+              },
+              plugins: {
+              title: {
+                display: true,
+                text: "LISA Savings Forecast"
+            },
+          }
           }
           });
       <% } %>
