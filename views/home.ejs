@@ -135,61 +135,63 @@
         
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script>
-            const colours = ['Crimson', 'RoyalBlue', 'LimeGreen', 'Yellow', 'HotPink', 'DarkOrange', 'Orchid', 'ForestGreen', 'Aqua', 'Peru']
+            <% if (graphData.length > 0){ %>
+                const colours = ['Crimson', 'RoyalBlue', 'LimeGreen', 'Yellow', 'HotPink', 'DarkOrange', 'Orchid', 'ForestGreen', 'Aqua', 'Peru']
 
-            const ctx2 = document.getElementById('chart1');
-            var graphData = <%- JSON.stringify(graphData) %>;
-            
-            new Chart(ctx2, {
-            type: 'line',
-            data: {
-                datasets: [{
-                    <% for (const i in graphData) { %>
-                        type: 'line',
-                        label: '£<%= data[i][0] %>',
-                        data: [
-                            <% for (const k in graphData[i]) { %>
-                                <%= graphData[i][k] %>,
+                const ctx2 = document.getElementById('chart1');
+                var graphData = <%- JSON.stringify(graphData) %>;
+
+                new Chart(ctx2, {
+                type: 'line',
+                data: {
+                    datasets: [{
+                        <% for (const i in graphData) { %>
+                            type: 'line',
+                            label: '£<%= data[i][0] %>',
+                            data: [
+                                <% for (const k in graphData[i]) { %>
+                                    <%= graphData[i][k] %>,
+                                <% } %>
+                            ],
+                            backgroundColor: colours[<%= i %>],
+                            borderColor: colours[<%= i %>]
+                            <% if (i < graphData.length-1) { %>
+                                }, {
                             <% } %>
-                        ],
-                        backgroundColor: colours[<%= i %>],
-                        borderColor: colours[<%= i %>]
-                        <% if (i < graphData.length-1) { %>
-                            }, {
                         <% } %>
-                    <% } %>
-                }],
+                    }],
 
-                labels: [
-                    <% for (const i in graphData[0]) { %>
-                        '<%= i %>', 
-                    <% } %>
-                ]
-            },
-            options: {
-                scales: {
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'Months',
-                            font: {
-                                size: 14
+                    labels: [
+                        <% for (const i in graphData[0]) { %>
+                            '<%= i %>', 
+                        <% } %>
+                    ]
+                },
+                options: {
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Months',
+                                font: {
+                                    size: 14
+                                }
                             }
-                        }
-                    },
-                    y: {
-                        beginAtZero: true,
-                        title: {
-                            display: true,
-                            text: 'Value (£)',
-                            font: {
-                                size: 14
+                        },
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Value (£)',
+                                font: {
+                                    size: 14
+                                }
                             }
                         }
                     }
                 }
-            }
-            });
+                });
+            <% } %>
         </script>
     </div>
   </div>
