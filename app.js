@@ -31,7 +31,7 @@ app.listen(port, () => {
 
 app.get("/", (req, res) => {
   res.render("home", {
-    title: "Savings Planner",
+    title: "Financial Toolbox",
     data: [],
     graphData: [],
     spent_instead: "",
@@ -356,7 +356,6 @@ app.post("/lisa", (req, res) => {
   });
 
   string_array.length = 10;
-
 
   const new_string_array = string_array.map((item) => {
     return [

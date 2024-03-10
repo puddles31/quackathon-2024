@@ -1,7 +1,8 @@
 {
   "scripts": {
     "build:css": "npx tailwindcss -i ./src/input.css -o ./dist/style.css --minify",
-    "watch:css": "tailwindcss build -i ./src/input.css -o ./public/output.css --watch"
+    "watch:css": "tailwindcss build -i ./src/input.css -o ./public/output.css --watch",
+    "start": "node app.js"
   },
   "dependencies": {
     "axios": "^1.6.7",
