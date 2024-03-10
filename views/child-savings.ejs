@@ -13,7 +13,7 @@
 
 <div class="container px-4 lg:px-0 lg:w-2/3 pb-8 lg:pb-16">
   <div class="lg:grid grid-cols-3 gap-x-16 mt-8">
-    <form method="post" action="/child-savings">
+    <form name="child-savings-form" onsubmit="return validateForm()" method="post" action="/child-savings">
       <label>Child's Age</label>
       <input required type="number" name="age" title="How old your child is currently" min="0" max="100" />
 
@@ -149,6 +149,18 @@
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
+      function validateForm() {
+
+        let age = document.forms["child-savings-form"]["age"].value;
+        let paymentAge = document.forms["child-savings-form"]["age_of_payment"].value;
+
+        if (parseInt(paymentAge) <= parseInt(age)) {
+          alert("The age of payment must be greater than the child's age.");
+          return false;
+        }
+      }
+
+
       const colours = ['Crimson', 'RoyalBlue', 'LimeGreen', 'LightSlateGray', 'HotPink', 'DarkOrange', 'Orchid', 'ForestGreen', 'Aqua', 'Peru']
 
       const ctx2 = document.getElementById('chart1');
