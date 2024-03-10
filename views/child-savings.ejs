@@ -9,10 +9,9 @@
   >
     <h1 class="text-5xl font-semibold">
       <span class="text-3xl material-symbols-outlined pr-2">savings</span
-      >Bask<span class="text-yellow-400">.it</span>
+      >Bask<span class="text-yellow-400">.it</span> - Child Savings Planner
     </h1>
   </div>
-
   <div class="container px-4 lg:px-0 lg:w-2/3 pb-8 lg:pb-16">
     <div class="lg:grid grid-cols-3 gap-x-16 mt-8">
       <form method="post" action="/formsubmit">
@@ -145,71 +144,70 @@
       </div>
     </div>
 
+    <% if (graphData.length > 0){ %> <% console.log(graphData.length) %>
     <div class="mt-16 bg-yellow-300 rounded-2xl p-8">
       <canvas id="chart1"></canvas>
 
       <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
       <script>
-        <% if (graphData.length > 0){ %>
-            const colours = ['Crimson', 'RoyalBlue', 'LimeGreen', 'LightSlateGray', 'HotPink', 'DarkOrange', 'Orchid', 'ForestGreen', 'Aqua', 'Peru']
+        const colours = ['Crimson', 'RoyalBlue', 'LimeGreen', 'LightSlateGray', 'HotPink', 'DarkOrange', 'Orchid', 'ForestGreen', 'Aqua', 'Peru']
 
-            const ctx2 = document.getElementById('chart1');
-            var graphData = <%- JSON.stringify(graphData) %>;
+        const ctx2 = document.getElementById('chart1');
+        var graphData = <%- JSON.stringify(graphData) %>;
 
-            new Chart(ctx2, {
-            type: 'line',
-            data: {
-                datasets: [{
-                    <% for (const i in graphData) { %>
-                        type: 'line',
-                        label: '£<%= data[i][0] %>',
-                        data: [
-                            <% for (const k in graphData[i]) { %>
-                                <%= graphData[i][k] %>,
-                            <% } %>
-                        ],
-                        backgroundColor: colours[<%= i %>],
-                        borderColor: colours[<%= i %>]
-                        <% if (i < graphData.length-1) { %>
-                            }, {
+        new Chart(ctx2, {
+        type: 'line',
+        data: {
+            datasets: [{
+                <% for (const i in graphData) { %>
+                    type: 'line',
+                    label: '£<%= data[i][0] %>',
+                    data: [
+                        <% for (const k in graphData[i]) { %>
+                            <%= graphData[i][k] %>,
                         <% } %>
+                    ],
+                    backgroundColor: colours[<%= i %>],
+                    borderColor: colours[<%= i %>]
+                    <% if (i < graphData.length-1) { %>
+                        }, {
                     <% } %>
-                }],
+                <% } %>
+            }],
 
-                labels: [
-                    <% for (const i in graphData[0]) { %>
-                        '<%= i %>',
-                    <% } %>
-                ]
-            },
-            options: {
-                scales: {
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'Months',
-                            font: {
-                                size: 14
-                            }
+            labels: [
+                <% for (const i in graphData[0]) { %>
+                    '<%= i %>',
+                <% } %>
+            ]
+        },
+        options: {
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Months',
+                        font: {
+                            size: 14
                         }
-                    },
-                    y: {
-                        beginAtZero: true,
-                        title: {
-                            display: true,
-                            text: 'Value (£)',
-                            font: {
-                                size: 14
-                            }
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Value (£)',
+                        font: {
+                            size: 14
                         }
                     }
                 }
             }
-            });
-        <% } %>
+        }
+        });
       </script>
     </div>
-    <% if (data.length > 0) { %>
+    <% } %> <% if (data.length > 0) { %>
     <div class="grid grid-cols-1 mt-8">
       <div class="col-span-2">
         <h1 class="text-3xl mt-4 mb-4 font-bold">Savings Account vs Cash</h1>
