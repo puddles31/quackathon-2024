@@ -15,18 +15,18 @@
 
 <div class="container px-4 lg:px-0 lg:w-2/3 pb-8 lg:pb-16">
   <div class="lg:grid grid-cols-3 gap-x-16 mt-8">
-    <form method="post" action="/lisa">
+    <form name="lisa-form" onsubmit="return validateForm()" method="post" action="/lisa">
       <label>Current Age</label>
-      <input required type="number" name="age" min="0" />
+      <input required type="number" name="age" title="Your age" min="0" max="100"/>
 
       <label class="mt-5">Target Age of Purchase</label>
-      <input required type="number" name="age_of_payment" min="0" max="100" />
+      <input required type="number" name="age_of_payment" title="How old you aim to be when you want to put a deposit down for a house" min="0" max="100" />
 
       <label class="mt-5">Target Deposit (£)</label>
-      <input required type="number" name="goal_amount" min="0" />
+      <input required type="number" name="goal_amount" title="The target deposit for the house" min="0" max="2000000" />
 
       <label class="mt-5">Account Interest Rate (%)</label>
-      <input required type="decimal" name="interest_rate" min="0" max="20" />
+      <input required type="decimal" name="interest_rate" title="The interest rate of your account" min="0" max="20" />
 
       <button
         type="submit"
@@ -166,6 +166,16 @@
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
+      function validateForm() {
+        let age = document.forms["lisa-form"]["age"].value;
+        let paymentAge = document.forms["lisa-form"]["age_of_payment"].value;
+
+        if (parseInt(paymentAge) <= parseInt(age)) {
+          alert("Your target age of purchase must be greater than your age.");
+          return false;
+        }
+      }
+
       <% if (graphData.length > 0){ %>
           const colours = ['Crimson', 'RoyalBlue', 'LimeGreen', 'Yellow', 'HotPink', 'DarkOrange', 'Orchid', 'ForestGreen', 'Aqua', 'Peru']
 
