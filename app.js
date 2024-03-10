@@ -222,7 +222,7 @@ app.post("/formsubmit", (req, res) => {
     spent_instead += new_string_array[0][0];
   }
 
-  res.render("child", {
+  res.render("child-savings", {
     title: "Savings Planner",
     data: new_string_array,
     graphData: total_graph_data_array,
