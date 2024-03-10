@@ -42,7 +42,7 @@ app.get("/", (req, res) => {
 
 app.get("/compounding", (req, res) => {
   res.render("compounding", {
-    title: "Compounding",
+    title: "Compound Interest",
     data: [],
     graphData: [],
     result: 0,
@@ -51,7 +51,7 @@ app.get("/compounding", (req, res) => {
 
 app.get("/child-savings", (req, res) => {
   res.render("child-savings", {
-    title: "Child",
+    title: "Child Savings",
     data: [],
     graphData: [],
     spent_instead: "",
