@@ -69,34 +69,28 @@
           type: 'line',
           data: {
               datasets: [{
-                  <% for (const i in graphData) { %>
-                      type: 'line',
-                      label: 'Hello',
-                      data: [
-                          <% for (const k in graphData[i]) { %>
-                              <%= graphData[i][k] %>,
-                          <% } %>
-                      ],
-                      backgroundColor: colours[<%= i %>],
-                      borderColor: colours[<%= i %>]
-                      <% if (i < graphData.length-1) { %>
-                          }, {
-                      <% } %>
-                  <% } %>
+                var graphData = [<%= JSON.stringify(graphData).split(" ") %>];
+          <% graphData = JSON.stringify(graphData).split(" ") %>
+          console.log(<%= graphData %>);
+          new Chart(ctx2, {
+          type: 'line',
+          data: {
+              datasets: [{
+                  data: <%= graphData %>,
+                  backgroundColor: colours[0],
+                  borderColor: colours[0],
+                  label: 'Balance'
               }],
-
               labels: [
-                  <% for (const i in graphData[0]) { %>
+                  <% for (var i = 1; i <= 50; i++) { %>
                       '<%= i %>',
                   <% } %>
               ]
-          },
-          options: {
-              scales: {
+
                   x: {
                       title: {
                           display: true,
-                          text: 'Months',
+                          text: 'Years',
                           font: {
                               size: 14
                           }

@@ -94,6 +94,7 @@ app.post("/formsubmit_compounding", (req, res) => {
   let totalValue = 0;
   let graphData = [];
   totalValue += parseFloat(balance);
+
   for (let i = 1; i <= 50; i++) {
     totalValue += parseFloat(totalValue) * (parseFloat(interest_rate) / 100); // * 0.04
 
@@ -235,127 +236,37 @@ app.post("/formsubmit", (req, res) => {
 });
 
 app.post("/formsubmit_pension", (req, res) => {
-  const { age, age_of_payment, goal_amount, interest_rate } = req.body;
+  const {
+    age,
+    retirement_age,
+    monthly_contribution,
+    retirement_income,
+    annual_salary,
+    total_workplace_contributions,
+    current_pension_savings,
+  } = req.body;
 
-  let string_array = [];
-  let total_graph_data_array = [];
+  let totalPensionPot = 0;
+  let annualGrowthRate = 1 + 5 / 100; // Convert percentage to a decimal for calculation
+  let yearlyValues = []; // Initialize an array to store the pension pot value at the end of each year
+  const yearsUntilRetirement = retirement_age - age; // Calculate the number of years until retirement
 
-  const duration = age_of_payment - age;
-
-  for (let t_duration = 0; t_duration <= duration; t_duration++) {
-    let graphData = [];
-    for (let deposit = 10; deposit < 10000; deposit = deposit + 10) {
-      let totalValue = 0;
-
-      for (let i = 1; i <= t_duration * 12; i++) {
-        totalValue += deposit;
-        totalValue += totalValue * (interest_rate / 100 / 12); // * 0.04
-
-        graphData.push(totalValue);
-      }
-
-      if (totalValue > goal_amount) {
-        string_array.push([deposit, t_duration, interest_rate, totalValue]);
-      }
-    }
+  // for years calculate the pension pot value at the end of each year
+  totalPensionPot = parseInt(current_pension_savings);
+  for (let year = 1; year <= yearsUntilRetirement; year++) {
+    // Calculate the pension pot value at the end of the year
+    totalPensionPot =
+      parseInt(totalPensionPot) + parseInt(monthly_contribution) * 12; // Add the annual contribution to the pension pot
+    totalPensionPot =
+      parseInt(totalPensionPot) + parseInt(annual_salary) * 0.03; // Add the workplace contribution to the pension pot
+    yearlyValues.push(totalPensionPot); // Add the pension pot value to the array
   }
 
-  let without_interest = 0;
-
-  // limit string_array to 1 of each deposit value:
-  string_array = string_array.filter((item, index, self) => {
-    return (
-      index ===
-      self.findIndex((t) => {
-        return t[0] === item[0];
-      })
-    );
-  });
-
-  // limit string_array to 1 of each duration value:
-  string_array = string_array.filter((item, index, self) => {
-    return (
-      index ===
-      self.findIndex((t) => {
-        return t[1] === item[1];
-      })
-    );
-  });
-
-  // order string_array by years descending
-  string_array.sort((a, b) => {
-    return b[1] - a[1];
-  });
-
-  // order string_array by closest to goal_amount
-  string_array.sort((a, b) => {
-    return Math.abs(a[3] - goal_amount) - Math.abs(b[3] - goal_amount);
-  });
-
-  // order string_array by deposit ascending
-  string_array.sort((a, b) => {
-    return a[0] - b[0];
-  });
-
-  string_array.length = 10;
-
-  string_array.forEach((item) => {
-    console.log(
-      `Save £${item[0]} per month for ${item[1]} years at ${
-        item[2]
-      }% interest to get £${item[3].toFixed(2)}`
-    );
-  });
-
-  const new_string_array = string_array.map((item) => {
-    // return `Save £${item[0]} per month for ${item[1]} years at ${
-    //   item[2]
-    // }% interest to get £${item[3].toFixed(2)}`;
-    return [
-      item[0],
-      item[1],
-      item[2],
-      item[3].toFixed(2),
-      numberWithCommas(item[3].toFixed(2)),
-    ];
-  });
-
-  for (let i in new_string_array) {
-    let graphData = [];
-    let totalValue = 0;
-    for (let j = 1; j <= new_string_array[i][1] * 12; j++) {
-      for (let k = 1; k <= j; k++) {
-        if (totalValue > goal_amount) {
-          break;
-        }
-        totalValue += new_string_array[i][0];
-        totalValue += totalValue * (new_string_array[i][2] / 100 / 12); // * 0.04
-        graphData.push(totalValue);
-      }
-    }
-    total_graph_data_array.push(graphData);
-  }
-  console.log(total_graph_data_array);
-
-  // with zero interest rate:
-  let zero_interest = 0;
-  for (let i = 1; i <= duration * 12; i++) {
-    zero_interest += new_string_array[0][0];
-  }
-
-  // if spent instead:
-  let spent_instead = 0;
-  for (let i = 1; i <= duration * 12; i++) {
-    spent_instead += new_string_array[0][0];
-  }
+  console.log(yearlyValues);
 
   res.render("pensions", {
     title: "Pensions Planner",
-    data: new_string_array,
-    graphData: total_graph_data_array,
-    spent_instead: numberWithCommas(spent_instead),
-    zero_interest_string: numberWithCommas(zero_interest),
-    zero_interest: zero_interest,
+    graphData: yearlyValues,
   });
 });
 
