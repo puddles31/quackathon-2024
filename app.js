@@ -40,17 +40,8 @@ app.get("/", (req, res) => {
   });
 });
 
-app.get("/compounding", (req, res) => {
-  res.render("compounding", {
-    title: "Compounding",
-    data: [],
-    graphData: [],
-    result: 0,
-  });
-});
-
-app.get("/child-savings", (req, res) => {
-  res.render("child-savings", {
+app.get("/child", (req, res) => {
+  res.render("child", {
     title: "Child",
     data: [],
     graphData: [],
@@ -85,27 +76,6 @@ app.get("/lisa", (req, res) => {
 function numberWithCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
-
-app.post("/formsubmit_compounding", (req, res) => {
-  const { balance, interest_rate } = req.body;
-
-  const result = 72 / interest_rate;
-
-  let totalValue = 0;
-  let graphData = [];
-  totalValue += balance;
-  for (let i = 1; i <= 50; i++) {
-    totalValue += totalValue * (interest_rate / 100); // * 0.04
-
-    graphData.push(totalValue);
-  }
-
-  res.render("compounding", {
-    title: "Savings Planner",
-    graphData: graphData,
-    result: result.toFixed(2),
-  });
-});
 
 app.post("/formsubmit", (req, res) => {
   const { age, age_of_payment, goal_amount, interest_rate } = req.body;
