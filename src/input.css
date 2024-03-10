@@ -61,3 +61,17 @@ button.tab.selected {
 .hide {
   visibility: hidden;
 }
+
+.dark-overlay {
+    @apply absolute inset-0 bg-black opacity-60 rounded-2xl;
+}
+
+.grid-btn {
+    @apply relative;
+}
+.grid-btn:hover .dark-overlay {
+    @apply opacity-70;
+}
+.grid-btn:hover h4 {
+    @apply text-yellow-400;
+}
