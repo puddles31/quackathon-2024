@@ -49,8 +49,8 @@ app.get("/compounding", (req, res) => {
   });
 });
 
-app.get("/child", (req, res) => {
-  res.render("child", {
+app.get("/child-savings", (req, res) => {
+  res.render("child-savings", {
     title: "Child",
     data: [],
     graphData: [],
