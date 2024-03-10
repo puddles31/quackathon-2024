@@ -51,7 +51,7 @@
           <div class="recommended-box mb-5">
             <p class="font-semibold">
               Save £<%= data[0][0] %> per month for <%= data[0][1] %> years at
-              <%= data[0][2] %>% interest to get £<%= data[0][3] %>
+              <%= data[0][2] %>% interest to get £<%= data[0][4] %>
             </p>
           </div>
           <% } %>
@@ -104,12 +104,12 @@
               <p
                 data-monthly="<%= data[i][0] %>"
                 data-years="<%= data[i][1] %>"
-                data-total="<%= data[i][3] %>"
+                data-total="<%= data[i][4] %>"
               >
                 Save <span class="font-medium">£<%= data[i][0] %></span> per
                 month for <%= data[i][1] %> <%- data[i][1] > 1 ? 'years':'year'
                 %> at <%= data[i][2] %>% interest to get
-                <span class="font-medium">£<%= data[i][3] %></span>
+                <span class="font-medium">£<%= data[i][4] %></span>
               </p>
             </div>
             <% } %>
@@ -131,7 +131,7 @@
               <tr>
                 <td><%= data[i][1] %> years</td>
                 <td>£<%= data[i][0] %></td>
-                <td>£<%= data[i][3] %></td>
+                <td>£<%= data[i][4] %></td>
               </tr>
               <% } %>
             </table>
@@ -218,8 +218,8 @@
         </p>
 
         <p class="mt-4 text-lg">
-          You would have missed out on £<%= data[0][3] - zero_interest %> in
-          interest. For free!
+          You would have missed out on £<%= (data[0][3] -
+          zero_interest).toFixed(2) %> in interest. For free!
         </p>
 
         <p class="mt-4 text-lg">
@@ -254,8 +254,8 @@
         <p class="mt-4 text-lg">
           This is a difference of
           <span class="inline"
-            >£<%= parseFloat(data[0][3]) - (data[0][0] * 12 * data[0][1])
-            %></span
+            >£<%= parseFloat((data[0][3]) - (data[0][0] * 12 *
+            data[0][1])).toFixed(2) %></span
           >.
         </p>
       </div>
