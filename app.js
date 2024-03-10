@@ -77,6 +77,27 @@ function numberWithCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
+app.post("/formsubmit_compounding", (req, res) => {
+  const { balance, interest_rate } = req.body;
+
+  const result = 72 / interest_rate;
+
+  let totalValue = 0;
+  let graphData = [];
+  totalValue += balance;
+  for (let i = 1; i <= 50; i++) {
+    totalValue += totalValue * (interest_rate / 100); // * 0.04
+
+    graphData.push(totalValue);
+  }
+
+  res.render("compounding", {
+    title: "Savings Planner",
+    graphData: graphData,
+    result: result.toFixed(2),
+  });
+});
+
 app.post("/formsubmit", (req, res) => {
   const { age, age_of_payment, goal_amount, interest_rate } = req.body;
 
