@@ -2,270 +2,271 @@
 
 <div class="relative">
   <div class="absolute inset-0 bg-black opacity-60"></div>
-  <img class="w-full h-48 object-cover" src="/dist/cash.jpg">
-  
-  <div class="absolute inset-0 flex flex-col justify-center items-center text-white z-10">
-      <h1 class="text-5xl font-semibold">
-          Lifetime ISA (LISA) Deposit Calculator
-        </h1>
+  <img class="w-full h-48 object-cover" src="/dist/cash.jpg" />
+
+  <div
+    class="absolute inset-0 flex flex-col justify-center items-center text-white z-10"
+  >
+    <h1 class="text-5xl font-semibold">
+      Lifetime ISA (LISA) Deposit Calculator
+    </h1>
   </div>
 </div>
 
 <div class="container px-4 lg:px-0 lg:w-2/3 pb-8 lg:pb-16">
-      <div class="lg:grid grid-cols-3 gap-x-16 mt-8">
-        <form method="post" action="/formsubmit_lisa">
-          <label>Current Age</label>
-          <input type="number" name="age" min="0" />
+  <div class="lg:grid grid-cols-3 gap-x-16 mt-8">
+    <form method="post" action="/formsubmit_lisa">
+      <label>Current Age</label>
+      <input required type="number" name="age" min="0" />
 
-          <label class="mt-5">Target Age of Purchase</label>
-          <input type="number" name="age_of_payment" min="0" max="100" />
+      <label class="mt-5">Target Age of Purchase</label>
+      <input required type="number" name="age_of_payment" min="0" max="100" />
 
-          <label class="mt-5">Target Deposit (£)</label>
-          <input type="number" name="goal_amount" min="0" />
+      <label class="mt-5">Target Deposit (£)</label>
+      <input required type="number" name="goal_amount" min="0" />
 
-          <label class="mt-5">Interest Rate (%)</label>
-          <input type="decimal" name="interest_rate" min="0" max="20" />
+      <label class="mt-5">Interest Rate (%)</label>
+      <input required type="decimal" name="interest_rate" min="0" max="20" />
 
+      <button
+        type="submit"
+        class="mt-5 bg-yellow-300 hover:bg-yellow-400 font-bold py-2 px-4 rounded w-full"
+      >
+        Submit
+      </button>
+    </form>
+
+    <div class="col-span-2">
+      <h2 class="lg:text-lg mt-4 mb-4">
+        The Lifetime ISA (LISA) is a government scheme that allows you to save
+        up to £4,000 per year tax-free. The government will then add a 25% bonus
+        on top of all contributions. Up to £1000 per tax year.
+      </h2>
+
+      <h2 class="lg:text-lg mt-4 mb-4">
+        A LISA can be used to buy your first home or for retirement. Money can
+        only be withdrawn for your first property or after the age of 60. If you
+        withdraw the money for any other reason, you will be charged a 25%
+        penalty, and actually lose money.
+      </h2>
+
+      <h2 class="lg:text-lg mt-4 mb-4">
+        This is an incredibly powerful way to save for your first home, and not
+        enough people know about it.
+      </h2>
+
+      <% if (data.length > 0) { %>
+      <h2 class="hide-initial lg:text-lg mt-4 mb-4">
+        In order of ease and efficiency, we recommend the following:
+      </h2>
+
+      <% if (data.length !== 0) { %>
+      <div class="recommended-box mb-5">
+        <p class="font-semibold">
+          Save £<%= data[0][0] %> per month for <%= data[0][1] %> years at <%=
+          data[0][2] %>% interest to get £<%= data[0][4] %>
+        </p>
+      </div>
+      <% } %>
+
+      <div class="mb-4 mt-10">
+        <p class="font-medium">Sort By:</p>
+        <div class="lg:grid grid-cols-3 gap-x-4">
           <button
-            type="submit"
-            class="mt-5 bg-yellow-300 hover:bg-yellow-400 font-bold py-2 px-4 rounded w-full"
+            onclick="sortTable('monthly')"
+            class="sort bg-yellow-300 mt-2 hover:bg-yellow-400 font-bold py-2 pl-4 pr-2 mx-2 rounded"
           >
-            Submit
-          </button>
-        </form>
-
-        <div class="col-span-2">
-          <h2 class="lg:text-lg mt-4 mb-4">
-            The Lifetime ISA (LISA) is a government scheme that allows you to
-            save up to £4,000 per year tax-free. The government will then add a
-            25% bonus on top of all contributions. Up to £1000 per tax year.
-          </h2>
-
-          <h2 class="lg:text-lg mt-4 mb-4">
-            A LISA can be used to buy your first home or for retirement. Money
-            can only be withdrawn for your first property or after the age of
-            60. If you withdraw the money for any other reason, you will be
-            charged a 25% penalty, and actually lose money.
-          </h2>
-
-          <h2 class="lg:text-lg mt-4 mb-4">
-            This is an incredibly powerful way to save for your first home, and
-            not enough people know about it.
-          </h2>
-
-          <% if (data.length > 0) { %>
-          <h2 class="hide-initial lg:text-lg mt-4 mb-4">
-            In order of ease and efficiency, we recommend the following:
-          </h2>
-
-          <% if (data.length !== 0) { %>
-          <div class="recommended-box mb-5">
-            <p class="font-semibold">
-              Save £<%= data[0][0] %> per month for <%= data[0][1] %> years at
-              <%= data[0][2] %>% interest to get £<%= data[0][4] %>
-            </p>
-          </div>
-          <% } %>
-
-          <div class="mb-4 mt-10">
-            <p class="font-medium">Sort By:</p>
-            <div class="lg:grid grid-cols-3 gap-x-4">
-              <button
-                onclick="sortTable('monthly')"
-                class="sort bg-yellow-300 mt-2 hover:bg-yellow-400 font-bold py-2 pl-4 pr-2 mx-2 rounded"
-              >
-                Monthly Deposit Amount
-                <span class="selected align-bottom material-symbols-outlined"
-                  >arrow_drop_down</span
-                >
-              </button>
-              <button
-                onclick="sortTable('years')"
-                class="sort bg-yellow-300 mt-2 hover:bg-yellow-400 font-bold py-2 pl-4 pr-2 mx-2 rounded"
-              >
-                Number of Years
-                <span class="hide align-bottom material-symbols-outlined"
-                  >arrow_drop_down</span
-                >
-              </button>
-              <button
-                onclick="sortTable('total')"
-                class="sort bg-yellow-300 mt-2 hover:bg-yellow-400 font-bold py-2 pl-4 pr-2 mx-2 rounded"
-              >
-                Total Savings Amount
-                <span class="hide align-bottom material-symbols-outlined"
-                  >arrow_drop_down</span
-                >
-              </button>
-            </div>
-          </div>
-          <% } %> <% if (data[0]){ %>
-          <div class="grid grid-cols-2">
-            <button class="tab rounded-tl-md selected" value="text">
-              Simple View
-            </button>
-            <button class="tab border-r rounded-tr-md" value="table">
-              Table View
-            </button>
-          </div>
-
-          <div id="text_view">
-            <% for (const i in data) { %>
-            <div class="display-box">
-              <p
-                data-monthly="<%= data[i][0] %>"
-                data-years="<%= data[i][1] %>"
-                data-total="<%= data[i][4] %>"
-              >
-                Save <span class="font-medium">£<%= data[i][0] %></span> per
-                month for <%= data[i][1] %> <%- data[i][1] > 1 ? 'years':'year'
-                %> at <%= data[i][2] %>% interest to get
-                <span class="font-medium">£<%= data[i][4] %></span>
-              </p>
-            </div>
-            <% } %>
-          </div>
-
-          <div id="table_view" class="hidden">
-            <div
-              class="border-gray-800 border-t border-l border-r px-2 py-0.5 font-semibold text-center text-sm italic"
+            Monthly Deposit Amount
+            <span class="selected align-bottom material-symbols-outlined"
+              >arrow_drop_down</span
             >
-              <p>25% Bonus + <%= data[0][2] %>% Interest Rate</p>
-            </div>
-            <table class="w-full">
-              <tr>
-                <th>Timespan</th>
-                <th>Saving per Month</th>
-                <th>Return</th>
-              </tr>
-              <% for (const i in data) { %>
-              <tr>
-                <td><%= data[i][1] %> years</td>
-                <td>£<%= data[i][0] %></td>
-                <td>£<%= data[i][4] %></td>
-              </tr>
-              <% } %>
-            </table>
-          </div>
-
-          <% } %>
+          </button>
+          <button
+            onclick="sortTable('years')"
+            class="sort bg-yellow-300 mt-2 hover:bg-yellow-400 font-bold py-2 pl-4 pr-2 mx-2 rounded"
+          >
+            Number of Years
+            <span class="hide align-bottom material-symbols-outlined"
+              >arrow_drop_down</span
+            >
+          </button>
+          <button
+            onclick="sortTable('total')"
+            class="sort bg-yellow-300 mt-2 hover:bg-yellow-400 font-bold py-2 pl-4 pr-2 mx-2 rounded"
+          >
+            Total Savings Amount
+            <span class="hide align-bottom material-symbols-outlined"
+              >arrow_drop_down</span
+            >
+          </button>
         </div>
       </div>
-
-    <div class="mt-16">
-      <canvas id="chart1"></canvas>
-
-      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-      <script>
-        <% if (graphData.length > 0){ %>
-            const colours = ['Crimson', 'RoyalBlue', 'LimeGreen', 'Yellow', 'HotPink', 'DarkOrange', 'Orchid', 'ForestGreen', 'Aqua', 'Peru']
-
-            const ctx2 = document.getElementById('chart1');
-            var graphData = <%- JSON.stringify(graphData) %>;
-
-            new Chart(ctx2, {
-            type: 'line',
-            data: {
-                datasets: [{
-                    <% for (const i in graphData) { %>
-                        type: 'line',
-                        label: '£<%= data[i][0] %>',
-                        data: [
-                            <% for (const k in graphData[i]) { %>
-                                <%= graphData[i][k] %>,
-                            <% } %>
-                        ],
-                        backgroundColor: colours[<%= i %>],
-                        borderColor: colours[<%= i %>]
-                        <% if (i < graphData.length-1) { %>
-                            }, {
-                        <% } %>
-                    <% } %>
-                }],
-
-                labels: [
-                    <% for (const i in graphData[0]) { %>
-                        '<%= i %>',
-                    <% } %>
-                ]
-            },
-            options: {
-                scales: {
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'Months',
-                            font: {
-                                size: 14
-                            }
-                        }
-                    },
-                    y: {
-                        beginAtZero: true,
-                        title: {
-                            display: true,
-                            text: 'Value (£)',
-                            font: {
-                                size: 14
-                            }
-                        }
-                    }
-                }
-            }
-            });
-        <% } %>
-      </script>
-    </div>
-    <% if (data.length > 0) { %>
-    <div class="grid grid-cols-1 mt-8">
-      <div class="col-span-2">
-        <h1 class="text-3xl mt-4 mb-4 font-bold">Savings Account vs Cash</h1>
-
-        <p class="mt-4 text-lg">
-          If you saved your £<%= data[0][0] %> per month as cash instead of in a
-          savings account. After <%= data[0][1] %> years, you would have <span class="text-red-600 inline"
-            >£<%=
-          zero_interest_string %></span> instead of <span class="text-green-600 inline"
-            >£<%= data[0][4] %></span>.
-        </p>
-
-        <p class="mt-4 text-lg">
-          You would have missed out on £<%= (data[0][3] -
-          zero_interest).toFixed(2) %> in interest. For free!
-        </p>
-
-        <p class="mt-4 text-lg">
-          Actually the value of your money would have decreased thanks to
-          inflation.
-        </p>
+      <% } %> <% if (data[0]){ %>
+      <div class="grid grid-cols-2">
+        <button class="tab rounded-tl-md selected" value="text">
+          Simple View
+        </button>
+        <button class="tab border-r rounded-tr-md" value="table">
+          Table View
+        </button>
       </div>
-    </div>
-    <% } %> <% if (data.length > 0) { %>
-    <div class="grid grid-cols-1 mt-8">
-      <div class="col-span-2">
-        <h1 class="text-3xl mt-4 mb-4 font-bold">
-          Saving is more powerful than spending
-        </h1>
 
-        <p class="mt-4 text-lg">
-          If instead of saving, you spent £<%= data[0][0] %> per month for <%=
-          data[0][1] %> years, you would have lost
-          <span class="text-red-600 inline">£<%= spent_instead %></span>.
-        </p>
-
-        <p class="mt-4 text-lg">
-          However, by saving £<%= data[0][0] %> per month for <%= data[0][1] %>
-          years, you would have gained
-          <span class="text-green-600 inline"
-            >£<%= (data[0][3]).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-            %></span
+      <div id="text_view">
+        <% for (const i in data) { %>
+        <div class="display-box">
+          <p
+            data-monthly="<%= data[i][0] %>"
+            data-years="<%= data[i][1] %>"
+            data-total="<%= data[i][4] %>"
           >
-          instead.
-        </p>
-
+            Save <span class="font-medium">£<%= data[i][0] %></span> per month
+            for <%= data[i][1] %> <%- data[i][1] > 1 ? 'years':'year' %> at <%=
+            data[i][2] %>% interest to get
+            <span class="font-medium">£<%= data[i][4] %></span>
+          </p>
+        </div>
+        <% } %>
       </div>
+
+      <div id="table_view" class="hidden">
+        <div
+          class="border-gray-800 border-t border-l border-r px-2 py-0.5 font-semibold text-center text-sm italic"
+        >
+          <p>25% Bonus + <%= data[0][2] %>% Interest Rate</p>
+        </div>
+        <table class="w-full">
+          <tr>
+            <th>Timespan</th>
+            <th>Saving per Month</th>
+            <th>Return</th>
+          </tr>
+          <% for (const i in data) { %>
+          <tr>
+            <td><%= data[i][1] %> years</td>
+            <td>£<%= data[i][0] %></td>
+            <td>£<%= data[i][4] %></td>
+          </tr>
+          <% } %>
+        </table>
+      </div>
+
+      <% } %>
     </div>
-    <% } %>
+  </div>
+
+  <div class="mt-16">
+    <canvas id="chart1"></canvas>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      <% if (graphData.length > 0){ %>
+          const colours = ['Crimson', 'RoyalBlue', 'LimeGreen', 'Yellow', 'HotPink', 'DarkOrange', 'Orchid', 'ForestGreen', 'Aqua', 'Peru']
+
+          const ctx2 = document.getElementById('chart1');
+          var graphData = <%- JSON.stringify(graphData) %>;
+
+          new Chart(ctx2, {
+          type: 'line',
+          data: {
+              datasets: [{
+                  <% for (const i in graphData) { %>
+                      type: 'line',
+                      label: '£<%= data[i][0] %>',
+                      data: [
+                          <% for (const k in graphData[i]) { %>
+                              <%= graphData[i][k] %>,
+                          <% } %>
+                      ],
+                      backgroundColor: colours[<%= i %>],
+                      borderColor: colours[<%= i %>]
+                      <% if (i < graphData.length-1) { %>
+                          }, {
+                      <% } %>
+                  <% } %>
+              }],
+
+              labels: [
+                  <% for (const i in graphData[0]) { %>
+                      '<%= i %>',
+                  <% } %>
+              ]
+          },
+          options: {
+              scales: {
+                  x: {
+                      title: {
+                          display: true,
+                          text: 'Months',
+                          font: {
+                              size: 14
+                          }
+                      }
+                  },
+                  y: {
+                      beginAtZero: true,
+                      title: {
+                          display: true,
+                          text: 'Value (£)',
+                          font: {
+                              size: 14
+                          }
+                      }
+                  }
+              }
+          }
+          });
+      <% } %>
+    </script>
+  </div>
+  <% if (data.length > 0) { %>
+  <div class="grid grid-cols-1 mt-8">
+    <div class="col-span-2">
+      <h1 class="text-3xl mt-4 mb-4 font-bold">Savings Account vs Cash</h1>
+
+      <p class="mt-4 text-lg">
+        If you saved your £<%= data[0][0] %> per month as cash instead of in a
+        savings account. After <%= data[0][1] %> years, you would have
+        <span class="text-red-600 inline">£<%= zero_interest_string %></span>
+        instead of
+        <span class="text-green-600 inline">£<%= data[0][4] %></span>.
+      </p>
+
+      <p class="mt-4 text-lg">
+        You would have missed out on £<%= (data[0][3] -
+        zero_interest).toFixed(2) %> in interest. For free!
+      </p>
+
+      <p class="mt-4 text-lg">
+        Actually the value of your money would have decreased thanks to
+        inflation.
+      </p>
+    </div>
+  </div>
+  <% } %> <% if (data.length > 0) { %>
+  <div class="grid grid-cols-1 mt-8">
+    <div class="col-span-2">
+      <h1 class="text-3xl mt-4 mb-4 font-bold">
+        Saving is more powerful than spending
+      </h1>
+
+      <p class="mt-4 text-lg">
+        If instead of saving, you spent £<%= data[0][0] %> per month for <%=
+        data[0][1] %> years, you would have lost
+        <span class="text-red-600 inline">£<%= spent_instead %></span>.
+      </p>
+
+      <p class="mt-4 text-lg">
+        However, by saving £<%= data[0][0] %> per month for <%= data[0][1] %>
+        years, you would have gained
+        <span class="text-green-600 inline"
+          >£<%= (data[0][3]).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+          %></span
+        >
+        instead.
+      </p>
+    </div>
+  </div>
+  <% } %>
 
   <script>
     let isAsc = true;
