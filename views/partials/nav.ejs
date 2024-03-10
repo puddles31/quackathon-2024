@@ -1,17 +1,24 @@
-<nav
-  class="flex items-center justify-between flex-wrap bg-yellow-300 px-6 py-3"
->
-  <div class="flex items-center flex-shrink-0 text-black mx-6">
+<nav class="flex items-center justify-between flex-wrap bg-yellow-300 px-6">
+  <div class="flex items-center flex-shrink-0 text-black mx-6 py-4 mr-8">
     <form class="m-0" method="get" action="/">
-      <button
-        type="submit"
-        class="font-bold text-3xl align-middle tracking-normal"
-      >
-        <span class="text-2xl align-bottom material-symbols-outlined pr-1"
-          >savings</span
-        >
+      <button type="submit" class="font-bold text-3xl align-middle tracking-normal">
+        <span class="text-2xl align-bottom material-symbols-outlined pr-1">savings</span>
         Bask.it
       </button>
+    </form>
+  </div>
+  
+  <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto ml-4">
+    <form class="m-0" method="get" action="/child-savings">
+      <button type="submit" class="inline-block text-lg font-bold px-9 py-6 leading-none hover:bg-black hover:text-yellow-400 lg:mt-0">Child Savings</button>
+    </form>
+
+    <form class="m-0" method="get" action="/pensions">
+      <button type="submit" class="inline-block text-lg font-bold px-9 py-6 leading-none hover:bg-black hover:text-yellow-400 lg:mt-0">Pensions</button>
+    </form>
+    
+    <form class="m-0" method="get" action="/LISA">
+      <button type="submit" class="inline-block text-lg font-bold px-9 py-6 leading-none hover:bg-black hover:text-yellow-400 lg:mt-0">LISA</button>
     </form>
   </div>
 </nav>
