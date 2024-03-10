@@ -2,117 +2,121 @@
 
 <div class="relative">
   <div class="absolute inset-0 bg-black opacity-60"></div>
-  <img class="w-full h-48 object-cover" src="/dist/charts.jpg">
-  
-  <div class="absolute inset-0 flex flex-col justify-center items-center text-white z-10">
-      <h1 class="text-5xl font-semibold">
-          Compounding Interest
-        </h1>
+  <img class="w-full h-48 object-cover" src="/dist/charts.jpg" />
+
+  <div
+    class="absolute inset-0 flex flex-col justify-center items-center text-white z-10"
+  >
+    <h1 class="text-5xl font-semibold">Compounding Interest</h1>
   </div>
 </div>
 
 <div class="container px-4 lg:px-0 lg:w-2/3 pb-8 lg:pb-16">
-      <div class="lg:grid grid-cols-3 gap-x-16 mt-8">
-        <form method="post" action="/formsubmit_compounding">
-          <label>Current Balance</label>
-          <input type="number" name="balance" min="0" />
+  <div class="lg:grid grid-cols-3 gap-x-16 mt-8">
+    <form method="post" action="/formsubmit_compounding">
+      <label>Current Balance</label>
+      <input type="number" name="balance" min="0" />
 
-          <label class="mt-5">Interest Rate (%)</label>
-          <input type="decimal" name="interest_rate" min="0" max="20" />
+      <label class="mt-5">Interest Rate (%)</label>
+      <input type="decimal" name="interest_rate" min="0" max="20" />
 
-          <button
-            type="submit"
-            class="mt-5 bg-yellow-300 hover:bg-yellow-400 font-bold py-2 px-4 rounded w-full"
-          >
-            Submit
-          </button>
-        </form>
+      <button
+        type="submit"
+        class="mt-5 bg-yellow-300 hover:bg-yellow-400 font-bold py-2 px-4 rounded w-full"
+      >
+        Submit
+      </button>
+    </form>
 
-        <div class="col-span-2">
-          <h2 class="lg:text-lg mt-4 mb-4">
-            Albert Einstein once said that compound interest is the 8th wonder
-            of the world. He who understands it, earns it; he who doesn't, pays
-            it.
-          </h2>
+    <div class="col-span-2">
+      <h2 class="lg:text-lg mt-4 mb-4">
+        Albert Einstein once said that compound interest is the 8th wonder of
+        the world. He who understands it, earns it; he who doesn't, pays it.
+      </h2>
 
-          <h2 class="lg:text-lg mt-4 mb-4">
-            A good rule of thumb to calculate the power of compound interest is
-            the rule of 72. Divide 72 by the interest rate to find out how many
-            years it will take for your money to double.
-          </h2>
+      <h2 class="lg:text-lg mt-4 mb-4">
+        A good rule of thumb to calculate the power of compound interest is the
+        rule of 72. Divide 72 by the interest rate to find out how many years it
+        will take for your money to double.
+      </h2>
 
-          <% if (result) { %>
-          <h2 class="lg:text-lg mt-4 mb-4">
-            Your balance will double every <%= result %> years
-          </h2>
-            <% } %>
-        </div>
-      </div>
+      <h2 class="lg:text-lg mt-4 mb-4">
+        Combining regular deposits with compound interest can lead to
+        significant growth in your savings over time.
+      </h2>
 
-    <div class="mt-16">
-      <canvas id="chart1"></canvas>
+      <% if (result) { %>
+      <h2 class="lg:text-lg mt-4 mb-4">
+        With just interest, your balance will double every
+        <span class="font-bold"><%= result %> years</span>
+      </h2>
+      <% } %>
+    </div>
+  </div>
 
-      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-      <script>
-        <% if (graphData.length > 0){ %>
-            const colours = ['Crimson', 'RoyalBlue', 'LimeGreen', 'Yellow', 'HotPink', 'DarkOrange', 'Orchid', 'ForestGreen', 'Aqua', 'Peru']
+  <div class="mt-16">
+    <canvas id="chart1"></canvas>
 
-            const ctx2 = document.getElementById('chart1');
-            var graphData = <%- JSON.stringify(graphData) %>;
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      <% if (graphData.length > 0){ %>
+          const colours = ['Crimson', 'RoyalBlue', 'LimeGreen', 'Yellow', 'HotPink', 'DarkOrange', 'Orchid', 'ForestGreen', 'Aqua', 'Peru']
 
-            new Chart(ctx2, {
-            type: 'line',
-            data: {
-                datasets: [{
-                    <% for (const i in graphData) { %>
-                        type: 'line',
-                        label: 'Hello',
-                        data: [
-                            <% for (const k in graphData[i]) { %>
-                                <%= graphData[i][k] %>,
-                            <% } %>
-                        ],
-                        backgroundColor: colours[<%= i %>],
-                        borderColor: colours[<%= i %>]
-                        <% if (i < graphData.length-1) { %>
-                            }, {
-                        <% } %>
-                    <% } %>
-                }],
+          const ctx2 = document.getElementById('chart1');
+          var graphData = <%- JSON.stringify(graphData) %>;
 
-                labels: [
-                    <% for (const i in graphData[0]) { %>
-                        '<%= i %>',
-                    <% } %>
-                ]
-            },
-            options: {
-                scales: {
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'Months',
-                            font: {
-                                size: 14
-                            }
-                        }
-                    },
-                    y: {
-                        beginAtZero: true,
-                        title: {
-                            display: true,
-                            text: 'Value (£)',
-                            font: {
-                                size: 14
-                            }
-                        }
-                    }
-                }
-            }
-            });
-        <% } %>
-      </script>
-   
+          new Chart(ctx2, {
+          type: 'line',
+          data: {
+              datasets: [{
+                  <% for (const i in graphData) { %>
+                      type: 'line',
+                      label: 'Hello',
+                      data: [
+                          <% for (const k in graphData[i]) { %>
+                              <%= graphData[i][k] %>,
+                          <% } %>
+                      ],
+                      backgroundColor: colours[<%= i %>],
+                      borderColor: colours[<%= i %>]
+                      <% if (i < graphData.length-1) { %>
+                          }, {
+                      <% } %>
+                  <% } %>
+              }],
+
+              labels: [
+                  <% for (const i in graphData[0]) { %>
+                      '<%= i %>',
+                  <% } %>
+              ]
+          },
+          options: {
+              scales: {
+                  x: {
+                      title: {
+                          display: true,
+                          text: 'Months',
+                          font: {
+                              size: 14
+                          }
+                      }
+                  },
+                  y: {
+                      beginAtZero: true,
+                      title: {
+                          display: true,
+                          text: 'Value (£)',
+                          font: {
+                              size: 14
+                          }
+                      }
+                  }
+              }
+          }
+          });
+      <% } %>
+    </script>
   </div>
 
   <script>
