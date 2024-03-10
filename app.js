@@ -189,18 +189,7 @@ app.post("/child-savings", (req, res) => {
 
   string_array.length = 10;
 
-  string_array.forEach((item) => {
-    // console.log(
-    //   `Save £${item[0]} per month for ${item[1]} years at ${
-    //     item[2]
-    //   }% interest to get £${item[3].toFixed(2)}`
-    // );
-  });
-
   const new_string_array = string_array.map((item) => {
-    // return `Save £${item[0]} per month for ${item[1]} years at ${
-    //   item[2]
-    // }% interest to get £${item[3].toFixed(2)}`;
     return [
       item[0],
       item[1],
@@ -225,15 +214,12 @@ app.post("/child-savings", (req, res) => {
     }
     total_graph_data_array.push(graphData);
   }
-  // console.log(total_graph_data_array);
 
   // with zero interest rate:
   let zero_interest = 0;
   for (let i = 1; i <= new_string_array[0][1] * 12; i++) {
     zero_interest += new_string_array[0][0];
   }
-
-  console.log(zero_interest);
 
   // if spent instead:
   let spent_instead = 0;
@@ -283,7 +269,6 @@ app.post("/pensions", (req, res) => {
 
     graphData.push(yearlyValues);
   }
-  // console.log(graphData);
 
   // Retain yearlyValues for 2% growth rate
   const privatePensionPot = yearlyValues[yearlyValues.length - 1]; // Total pension pot value
@@ -372,18 +357,8 @@ app.post("/lisa", (req, res) => {
 
   string_array.length = 10;
 
-  string_array.forEach((item) => {
-    // console.log(
-    //   `Save £${item[0]} per month for ${item[1]} years at ${
-    //     item[2]
-    //   }% interest to get £${item[3].toFixed(2)}`
-    // );
-  });
 
   const new_string_array = string_array.map((item) => {
-    // return `Save £${item[0]} per month for ${item[1]} years at ${
-    //   item[2]
-    // }% interest to get £${item[3].toFixed(2)}`;
     return [
       item[0],
       item[1],
@@ -408,7 +383,6 @@ app.post("/lisa", (req, res) => {
     }
     total_graph_data_array.push(graphData);
   }
-  // console.log(total_graph_data_array);
 
   // with zero interest rate:
   let zero_interest = 0;

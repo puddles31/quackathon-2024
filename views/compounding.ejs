@@ -13,14 +13,16 @@
 
 <div class="container px-4 lg:px-0 lg:w-2/3 pb-8 lg:pb-16">
   <div class="lg:grid grid-cols-3 gap-x-16 mt-8">
-    <form method="post" action="/compounding">
+    <form name="compunding-form" method="post" action="/compounding">
       <label>Current Balance</label>
       <input
         value="<%= balance %>"
         required
         type="number"
         name="balance"
+        title="How much money is in the account"
         min="0"
+        max="2500000"
       />
 
       <label class="mt-5">Interest Rate (%)</label>
@@ -29,6 +31,7 @@
         required
         type="decimal"
         name="interest_rate"
+        title="The interest rate of the account"
         min="0"
         max="20"
       />
@@ -79,7 +82,6 @@
           var graphData = [<%= JSON.stringify(graphData).split(" ") %>];
 
           <% graphData = JSON.stringify(graphData).split(" ") %>
-          console.log(<%= graphData %>);
 
           new Chart(ctx2, {
           type: 'line',
@@ -118,8 +120,14 @@
                           }
                       }
                   }
+              },
+              plugins: {
+                title: {
+                  display: true,
+                  text: "Compound Interest Over Time"
+                },
               }
-          }
+            }
           });
       <% } %>
     </script>
