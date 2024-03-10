@@ -32,7 +32,7 @@ textarea {
 }
 
 .display-box {
-  @apply border-t border-l border-r border-gray-900 px-4 py-4;
+  @apply border-t border-l border-r border-gray-900 px-3 py-3 lg:px-4 lg:py-4 text-center;
 }
 .display-box:last-child {
   @apply border-b;
@@ -56,4 +56,10 @@ button.tab {
 }
 button.tab.selected {
   @apply bg-yellow-300 font-medium;
+}
+
+
+
+.hide {
+  visibility: hidden;
 }

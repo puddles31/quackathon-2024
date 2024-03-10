@@ -1,16 +1,16 @@
 <%- include('./partials/header.ejs') %> <%- include('./partials/nav.ejs') %>
 
-<div class="container w-2/3">
-  <div class="py-16">
+<div class="container px-4 lg:px-0 lg:w-2/3">
+  <div class="py-8 lg:py-16">
     <div>
       <div class="text-center">
-        <h1 class="text-5xl font-semibold">Bask.it</h1>
+        <h1 class="text-5xl font-semibold">Bask<span class="text-yellow-400">.it</span></h1>
         <h2 class="text-lg mt-4">
           An understandable savings planner for parents and their children
         </h2>
       </div>
 
-      <div class="grid grid-cols-3 gap-x-16 mt-8">
+      <div class="lg:grid grid-cols-3 gap-x-16 mt-8">
         <form method="post" action="/formsubmit">
           <label>Child's Age</label>
           <input type="number" name="age" min="0" />
@@ -26,21 +26,21 @@
 
           <button
             type="submit"
-            class="mt-5 bg-yellow-300 hover:bg-yellow-400 font-medium py-2 px-4 rounded w-full"
+            class="mt-5 bg-yellow-300 hover:bg-yellow-400 font-bold py-2 px-4 rounded w-full"
           >
             Submit
           </button>
         </form>
 
         <div class="col-span-2">
-          <h2 class="text-lg mt-4 mb-4">
+          <h2 class="lg:text-lg mt-4 mb-4">
             Our Bask.it algorithm calculates the most manageable and accurate
             savings plan that will get you to your goal. We prioritise
             affordable savings first, and speed second.
           </h2>
 
           <% if (data.length > 0) { %>
-          <h2 class="hide-initial text-lg mt-4 mb-4">
+          <h2 class="hide-initial lg:text-lg mt-4 mb-4">
             In order of ease and efficiency, we recommend the following:
           </h2>
 
@@ -54,26 +54,34 @@
           <% } %>
 
           <div class="mb-4 mt-10">
-            <p>More Saving Options</p>
-            <span class="mt-5 py-2 px-4 mx-2 rounded">Sort By</span>
-            <button
-              onclick="sortTable('monthly')"
-              class="bg-yellow-300 mt-5 hover:bg-yellow-400 font-bold py-2 px-4 mx-2 rounded"
-            >
-              Monthly Deposit Amount
-            </button>
-            <button
-              onclick="sortTable('years')"
-              class="bg-yellow-300 mt-5 hover:bg-yellow-400 font-bold py-2 px-4 mx-2 rounded"
-            >
-              Number of Years
-            </button>
-            <button
-              onclick="sortTable('total')"
-              class="bg-yellow-300 mt-5 hover:bg-yellow-400 font-bold py-2 px-4 mx-2 rounded"
-            >
-              Total Savings Amount
-            </button>
+            <p class="font-medium">Sort By:</p>
+            <div class="lg:grid grid-cols-3 gap-x-4">
+                <button
+                onclick="sortTable('monthly')"
+  
+                class="sort bg-yellow-300 mt-2 hover:bg-yellow-400 font-bold py-2 pl-4 pr-2 mx-2 rounded"
+  
+              >
+                Monthly Deposit Amount <span class="selected align-bottom material-symbols-outlined">arrow_drop_down</span>
+              </button>
+              <button
+                onclick="sortTable('years')"
+  
+                class="sort bg-yellow-300 mt-2 hover:bg-yellow-400 font-bold py-2 pl-4 pr-2 mx-2 rounded"
+  
+              >
+                Number of Years <span class="hide align-bottom material-symbols-outlined">arrow_drop_down</span>
+              </button>
+              <button
+                onclick="sortTable('total')"
+  
+                class="sort bg-yellow-300 mt-2 hover:bg-yellow-400 font-bold py-2 pl-4 pr-2 mx-2 rounded"
+  
+              >
+                Total Savings Amount <span class="hide align-bottom material-symbols-outlined">arrow_drop_down</span>
+              </button>
+            </div>
+            
           </div>
           <% } %> <% if (data[0]){ %>
           <div class="grid grid-cols-2">
@@ -399,6 +407,7 @@
               shouldSwap = true;
               break;
             }
+
           }
           if (shouldSwap) {
             /* If a switch has been marked, make the switch

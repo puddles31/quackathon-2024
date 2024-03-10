@@ -33,6 +33,7 @@ app.get("/", (req, res) => {
   res.render("home", {
     title: "Home",
     data: [],
+    graphData: []
   });
 });
 
@@ -156,7 +157,7 @@ app.post("/formsubmit", (req, res) => {
   }
 
   res.render("home", {
-    title: "Home",
+    title: "Savings Planner",
     data: new_string_array,
     graphData: total_graph_data_array,
     spent_instead: numberWithCommas(spent_instead),
