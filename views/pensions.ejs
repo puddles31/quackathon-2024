@@ -25,17 +25,17 @@
           <label class="mt-5">Retirement Age</label>
           <input required type="number" name="retirement_age" min="0" max="100" />
 
-          <label class="mt-5">Target Retirement Income</label>
-          <input required type="number" name="retirement_income" min="0" max="999999" />
+          <!-- <label class="mt-5">Target Retirement Income</label>
+          <input required type="number" name="retirement_income" min="0" max="999999" /> -->
 
           <label class="mt-5">Monthly Contribution</label>
           <input required type="number" name="monthly_contribution" min="0" max="999999" />
 
-          <label class="mt-5">Annual Salary</label>
+          <!-- <label class="mt-5">Annual Salary</label>
           <input required type="number" name="annual_salary" min="0" max="999999" />
 
           <label class="mt-5">Total Workplace Pension Contributions</label>
-          <input required type="number" name="total_workplace_contributions" min="0" max="999999" />
+          <input required type="number" name="total_workplace_contributions" min="0" max="999999" /> -->
 
           <label class="mt-5">Current Pension Savings</label>
           <input required type="number" name="current_pension_savings" min="0" max="999999" />
@@ -67,6 +67,11 @@
     <div class="mt-16">
       <canvas id="chart1"></canvas>
 
+      <div class="flex justify-between items-center flex-wrap flex-shrink-0 px-6">
+        <span class="w-1/2"><canvas id="chart2"></canvas></span>
+        <span class="w-1/2"><canvas id="chart3"></canvas></span>
+      </div>
+
       <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
       <script>
         <% if (graphData.length > 0){ %>
@@ -96,6 +101,13 @@
               ]
             },
             options: {
+              responsive: true,
+              plugins: {
+                  title: {
+                    display: true,
+                    text: "Private Pension Growth"
+                  },
+                },
                 scales: {
                     x: {
                         title: {
@@ -119,6 +131,78 @@
                 }
             }
             });
+
+            const ctx3 = document.getElementById('chart2');
+
+            new Chart(ctx3, {
+              type: 'pie',
+              data: {
+                datasets: [
+                  {
+                    data: [<%= pieGraphLumpSum %>, <%= pieGraphPotAfterSum %> ],
+                    backgroundColor: [colours[3], colours[0]]
+                  }
+                ],
+                labels: ["Tax Free Lump Sum", "Remaining Pension Pot"]
+              },
+              options: {
+                responsive: true,
+                radius: "75%",
+                plugins: {
+                  title: {
+                    display: true,
+                    text: "Pension Pot Breakdown"
+                  },
+                }
+              }
+            });
+
+            const ctx4 = document.getElementById('chart3');
+
+            new Chart(ctx4, {
+              type: 'bar',
+              data: {
+                datasets: [
+                  {
+                    data: [0, <%= barGraphStatePension %> ],
+                    backgroundColor: colours[1],
+                    label: "State Pension"
+                  },
+                  {
+                    data: [ <%= barGraphPrivatePension %>, <%= barGraphPrivatePension %> ],
+                    backgroundColor: colours[0],
+                    label: "Private Pension"
+                  }
+                ],
+                labels: ["Before State Pension Age (66)", "After State Pension Age (66)"]
+              },
+              options: {
+                responsive: true,
+                barPercentage: 0.1,
+                plugins: {
+                  title: {
+                    display: true,
+                    text: "Pension Annual Income Breakdown"
+                  },
+                },
+                scales: {
+                  x: {
+                    stacked: true,
+                  },
+                  y: {
+                    stacked: true,
+                    title: {
+                      display: true,
+                      text: 'Annual Income from Pension (£)',
+                      font: {
+                          size: 14
+                      }
+                    } 
+                  }
+                }
+              }
+            });
+
         <% } %>
       </script>
     </div>

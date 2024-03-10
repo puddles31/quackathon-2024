@@ -240,14 +240,11 @@ app.post("/formsubmit_pension", (req, res) => {
     age,
     retirement_age,
     monthly_contribution,
-    retirement_income,
-    annual_salary,
-    total_workplace_contributions,
     current_pension_savings,
   } = req.body;
 
   let totalPensionPot = 0;
-  let annualGrowthRate = 1 + 5 / 100; // Convert percentage to a decimal for calculation
+  let annualGrowthRate = 1 + 0.02; // Average annual growth rate of 2%
   let yearlyValues = []; // Initialize an array to store the pension pot value at the end of each year
   const yearsUntilRetirement = retirement_age - age; // Calculate the number of years until retirement
 
@@ -256,17 +253,28 @@ app.post("/formsubmit_pension", (req, res) => {
   for (let year = 1; year <= yearsUntilRetirement; year++) {
     // Calculate the pension pot value at the end of the year
     totalPensionPot =
-      parseInt(totalPensionPot) + parseInt(monthly_contribution) * 12; // Add the annual contribution to the pension pot
+      parseInt(totalPensionPot) + parseInt(monthly_contribution) * 12; // Add contribution to the pension pot
     totalPensionPot =
-      parseInt(totalPensionPot) + parseInt(annual_salary) * 0.03; // Add the workplace contribution to the pension pot
+      parseInt(totalPensionPot) * annualGrowthRate; // Add annual growth to the pension pot
     yearlyValues.push(totalPensionPot); // Add the pension pot value to the array
   }
 
   console.log(yearlyValues);
 
+  const privatePensionPot = yearlyValues[yearlyValues.length - 1]; // Total pension pot value
+  const taxFreeLumpSum = 0.25 * privatePensionPot; // 25% tax free lump sum
+  const privatePensionPotAfterSum = privatePensionPot - taxFreeLumpSum;  // Remaining pension pot
+  const annualPrivatePension = privatePensionPotAfterSum / 20; // 20 year annuity
+
+  const annualStatePension = 10600; // Annual state pension
+
   res.render("pensions", {
     title: "Pensions Planner",
     graphData: yearlyValues,
+    pieGraphLumpSum: taxFreeLumpSum,
+    pieGraphPotAfterSum: privatePensionPotAfterSum,
+    barGraphPrivatePension: annualPrivatePension,
+    barGraphStatePension: annualStatePension
   });
 });
 
