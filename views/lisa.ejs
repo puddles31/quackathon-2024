@@ -223,8 +223,10 @@
 
         <p class="mt-4 text-lg">
           If you saved your £<%= data[0][0] %> per month as cash instead of in a
-          savings account. After <%= data[0][1] %> years, you would have £<%=
-          zero_interest_string %> instead of £<%= data[0][4] %>.
+          savings account. After <%= data[0][1] %> years, you would have <span class="text-red-600 inline"
+            >£<%=
+          zero_interest_string %></span> instead of <span class="text-green-600 inline"
+            >£<%= data[0][4] %></span>.
         </p>
 
         <p class="mt-4 text-lg">
@@ -261,13 +263,6 @@
           instead.
         </p>
 
-        <p class="mt-4 text-lg">
-          This is a difference of
-          <span class="inline"
-            >£<%= parseFloat((data[0][3]) - (data[0][0] * 12 *
-            data[0][1])).toFixed(2) %></span
-          >.
-        </p>
       </div>
     </div>
     <% } %>
