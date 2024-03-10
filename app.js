@@ -40,6 +40,15 @@ app.get("/", (req, res) => {
   });
 });
 
+app.get("/compounding", (req, res) => {
+  res.render("compounding", {
+    title: "Compounding",
+    data: [],
+    graphData: [],
+    result: 0,
+  });
+});
+
 app.get("/child", (req, res) => {
   res.render("child", {
     title: "Child",
