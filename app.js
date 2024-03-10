@@ -101,8 +101,6 @@ app.post("/compounding", (req, res) => {
     graphData.push(totalValue);
   }
 
-  console.log(graphData);
-
   res.render("compounding", {
     title: "Compound Interest",
     graphData: graphData,
@@ -176,11 +174,11 @@ app.post("/child-savings", (req, res) => {
   string_array.length = 10;
 
   string_array.forEach((item) => {
-    console.log(
-      `Save £${item[0]} per month for ${item[1]} years at ${
-        item[2]
-      }% interest to get £${item[3].toFixed(2)}`
-    );
+    // console.log(
+    //   `Save £${item[0]} per month for ${item[1]} years at ${
+    //     item[2]
+    //   }% interest to get £${item[3].toFixed(2)}`
+    // );
   });
 
   const new_string_array = string_array.map((item) => {
@@ -211,7 +209,7 @@ app.post("/child-savings", (req, res) => {
     }
     total_graph_data_array.push(graphData);
   }
-  console.log(total_graph_data_array);
+  // console.log(total_graph_data_array);
 
   // with zero interest rate:
   let zero_interest = 0;
@@ -243,24 +241,30 @@ app.post("/pensions", (req, res) => {
     current_pension_savings,
   } = req.body;
 
-  let totalPensionPot = 0;
-  let annualGrowthRate = 1 + 0.02; // Average annual growth rate of 2%
-  let yearlyValues = []; // Initialize an array to store the pension pot value at the end of each year
   const yearsUntilRetirement = retirement_age - age; // Calculate the number of years until retirement
 
-  // for years calculate the pension pot value at the end of each year
-  totalPensionPot = parseInt(current_pension_savings);
-  for (let year = 1; year <= yearsUntilRetirement; year++) {
-    // Calculate the pension pot value at the end of the year
-    totalPensionPot =
-      parseInt(totalPensionPot) + parseInt(monthly_contribution) * 12; // Add contribution to the pension pot
-    totalPensionPot =
-      parseInt(totalPensionPot) * annualGrowthRate; // Add annual growth to the pension pot
-    yearlyValues.push(totalPensionPot); // Add the pension pot value to the array
+  let graphData = [];
+  let yearlyValues = [];
+
+  for (let annualGrowthRate = 1.05; annualGrowthRate >= 1.02; annualGrowthRate -= 0.015) {
+    // for years calculate the pension pot value at the end of each year
+    yearlyValues = [];
+    let totalPensionPot = parseInt(current_pension_savings);
+
+    for (let year = 1; year <= yearsUntilRetirement; year++) {
+      // Calculate the pension pot value at the end of the year
+      totalPensionPot =
+        parseInt(totalPensionPot) + parseInt(monthly_contribution) * 12; // Add contribution to the pension pot
+      totalPensionPot =
+        parseInt(totalPensionPot) * annualGrowthRate; // Add annual growth to the pension pot
+      yearlyValues.push(totalPensionPot); // Add the pension pot value to the array
+    }
+
+    graphData.push(yearlyValues);
   }
-
-  console.log(yearlyValues);
-
+  // console.log(graphData);
+  
+  // Retain yearlyValues for 2% growth rate
   const privatePensionPot = yearlyValues[yearlyValues.length - 1]; // Total pension pot value
   const taxFreeLumpSum = 0.25 * privatePensionPot; // 25% tax free lump sum
   const privatePensionPotAfterSum = privatePensionPot - taxFreeLumpSum;  // Remaining pension pot
@@ -270,7 +274,7 @@ app.post("/pensions", (req, res) => {
 
   res.render("pensions", {
     title: "Pensions",
-    graphData: yearlyValues,
+    graphData: graphData,
     pieGraphLumpSum: taxFreeLumpSum,
     pieGraphPotAfterSum: privatePensionPotAfterSum,
     barGraphPrivatePension: annualPrivatePension,
@@ -344,11 +348,11 @@ app.post("/lisa", (req, res) => {
   string_array.length = 10;
 
   string_array.forEach((item) => {
-    console.log(
-      `Save £${item[0]} per month for ${item[1]} years at ${
-        item[2]
-      }% interest to get £${item[3].toFixed(2)}`
-    );
+    // console.log(
+    //   `Save £${item[0]} per month for ${item[1]} years at ${
+    //     item[2]
+    //   }% interest to get £${item[3].toFixed(2)}`
+    // );
   });
 
   const new_string_array = string_array.map((item) => {
@@ -379,7 +383,7 @@ app.post("/lisa", (req, res) => {
     }
     total_graph_data_array.push(graphData);
   }
-  console.log(total_graph_data_array);
+  // console.log(total_graph_data_array);
 
   // with zero interest rate:
   let zero_interest = 0;
