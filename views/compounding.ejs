@@ -1,0 +1,310 @@
+<%- include('./partials/header.ejs') %> <%- include('./partials/nav.ejs') %>
+
+<div class="container px-4 lg:px-0 lg:w-2/3">
+  <div class="py-8 lg:py-16">
+    <div>
+      <div class="text-center">
+        <h1 class="text-5xl font-semibold">
+          <span class="text-3xl material-symbols-outlined pr-2">savings</span
+          >Bask<span class="text-yellow-400">.it</span> - Compounding Interest
+        </h1>
+      </div>
+
+      <div class="lg:grid grid-cols-3 gap-x-16 mt-8">
+        <form method="post" action="/formsubmit_compounding">
+          <label>Current Balance</label>
+          <input type="number" name="balance" min="0" />
+
+          <label class="mt-5">Interest Rate (%)</label>
+          <input type="decimal" name="interest_rate" min="0" max="20" />
+
+          <button
+            type="submit"
+            class="mt-5 bg-yellow-300 hover:bg-yellow-400 font-bold py-2 px-4 rounded w-full"
+          >
+            Submit
+          </button>
+        </form>
+
+        <div class="col-span-2">
+          <h2 class="lg:text-lg mt-4 mb-4">
+            Albert Einstein once said that compound interest is the 8th wonder
+            of the world. He who understands it, earns it; he who doesn't, pays
+            it.
+          </h2>
+
+          <h2 class="lg:text-lg mt-4 mb-4">
+            A good rule of thumb to calculate the power of compound interest is
+            the rule of 72. Divide 72 by the interest rate to find out how many
+            years it will take for your money to double.
+          </h2>
+
+          <% if (result) { %>
+          <h2 class="lg:text-lg mt-4 mb-4">
+            Your balance will double every <%= result %> years
+          </h2>
+            <% } %>
+
+          
+       
+          </div>
+
+        
+
+      
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-16">
+      <canvas id="chart1"></canvas>
+
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+      <script>
+        <% if (graphData.length > 0){ %>
+            const colours = ['Crimson', 'RoyalBlue', 'LimeGreen', 'Yellow', 'HotPink', 'DarkOrange', 'Orchid', 'ForestGreen', 'Aqua', 'Peru']
+
+            const ctx2 = document.getElementById('chart1');
+            var graphData = <%- JSON.stringify(graphData) %>;
+
+            new Chart(ctx2, {
+            type: 'line',
+            data: {
+                datasets: [{
+                    <% for (const i in graphData) { %>
+                        type: 'line',
+                        label: 'Hello',
+                        data: [
+                            <% for (const k in graphData[i]) { %>
+                                <%= graphData[i][k] %>,
+                            <% } %>
+                        ],
+                        backgroundColor: colours[<%= i %>],
+                        borderColor: colours[<%= i %>]
+                        <% if (i < graphData.length-1) { %>
+                            }, {
+                        <% } %>
+                    <% } %>
+                }],
+
+                labels: [
+                    <% for (const i in graphData[0]) { %>
+                        '<%= i %>',
+                    <% } %>
+                ]
+            },
+            options: {
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Months',
+                            font: {
+                                size: 14
+                            }
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Value (£)',
+                            font: {
+                                size: 14
+                            }
+                        }
+                    }
+                }
+            }
+            });
+        <% } %>
+      </script>
+    </div>
+   
+  </div>
+
+  <script>
+    let isAsc = true;
+    let lastAttr = "";
+
+    function sortTable(attr) {
+      var rows, swapping, i, x, y, shouldSwap;
+      swapping = true;
+
+      if (attr == lastAttr) {
+        isAsc = !isAsc;
+      } else {
+        isAsc = true;
+      }
+
+      lastAttr = attr;
+
+      if (document.getElementById("text_view").classList.contains("hidden")) {
+        // Keep looping until no more row swaps have been made
+        while (swapping) {
+          swapping = false;
+          rows = document.querySelectorAll("table tr:not(:first-child)");
+
+          // Loop through all rows
+          for (i = 0; i < rows.length - 1; i++) {
+            shouldSwap = false;
+
+            /* Get the two elements you want to compare,
+          one from current row and one from the next: */
+
+            switch (attr) {
+              case "years":
+                x = rows[i]
+                  .getElementsByTagName("td")[0]
+                  .innerHTML.replace(" years", "");
+                y = rows[i + 1]
+                  .getElementsByTagName("td")[0]
+                  .innerHTML.replace(" years", "");
+                break;
+              case "monthly":
+                x = rows[i]
+                  .getElementsByTagName("td")[1]
+                  .innerHTML.replace("£", "");
+                y = rows[i + 1]
+                  .getElementsByTagName("td")[1]
+                  .innerHTML.replace("£", "");
+                break;
+              case "total":
+                x = rows[i]
+                  .getElementsByTagName("td")[2]
+                  .innerHTML.replace("£", "");
+                y = rows[i + 1]
+                  .getElementsByTagName("td")[2]
+                  .innerHTML.replace("£", "");
+                break;
+            }
+
+            // Check if the two rows should switch place
+            if (
+              (isAsc && parseFloat(x) > parseFloat(y)) ||
+              (!isAsc && parseFloat(x) < parseFloat(y))
+            ) {
+              // If so, mark as a switch and break the loop
+              shouldSwap = true;
+              break;
+            }
+          }
+          if (shouldSwap) {
+            /* If a switch has been marked, make the switch
+          and mark that a switch has been done: */
+            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+            swapping = true;
+          }
+        }
+      } else {
+        // Keep looping until no more row swaps have been made
+        while (swapping) {
+          swapping = false;
+          rows = document.querySelectorAll(".display-box");
+
+          // Loop through all rows
+          for (i = 0; i < rows.length - 1; i++) {
+            shouldSwap = false;
+
+            /* Get the two elements you want to compare,
+          one from current row and one from the next: */
+            x = rows[i].getElementsByTagName("p")[0];
+            y = rows[i + 1].getElementsByTagName("p")[0];
+
+            // Check if the two rows should switch place
+            if (attr == "total") {
+              if (
+                (isAsc &&
+                  parseFloat(x.dataset.total.replace(",", "")) >
+                    parseFloat(y.dataset.total.replace(",", ""))) ||
+                (!isAsc &&
+                  parseFloat(x.dataset.total.replace(",", "")) <
+                    parseFloat(y.dataset.total.replace(",", "")))
+              ) {
+                // If so, mark as a switch and break the loop
+                shouldSwap = true;
+                break;
+              }
+            } else if (
+              (isAsc &&
+                parseFloat(x.dataset[`${attr}`]) >
+                  parseFloat(y.dataset[`${attr}`])) ||
+              (!isAsc &&
+                parseFloat(x.dataset[`${attr}`]) <
+                  parseFloat(y.dataset[`${attr}`]))
+            ) {
+              // If so, mark as a switch and break the loop
+              shouldSwap = true;
+              break;
+            }
+          }
+          if (shouldSwap) {
+            /* If a switch has been marked, make the switch
+          and mark that a switch has been done: */
+            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+            swapping = true;
+          }
+        }
+      }
+    }
+  </script>
+
+  <%- include('./partials/footer.ejs') %>
+
+  <script>
+    var tabs = Array.from(document.getElementsByClassName("tab"));
+    const text_view = document.getElementById("text_view");
+    const table_view = document.getElementById("table_view");
+
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", function () {
+        var view = this.value;
+        tabs.forEach((tab_btn) => {
+          tab_btn.classList.remove("selected");
+        });
+
+        if (view == "text") {
+          text_view.classList.remove("hidden");
+          table_view.classList.add("hidden");
+          tab.classList.add("selected");
+        } else {
+          table_view.classList.remove("hidden");
+          text_view.classList.add("hidden");
+          tab.classList.add("selected");
+        }
+      });
+    });
+
+    const buttons = Array.from(document.querySelectorAll(".sort"));
+    buttons.forEach((button) => {
+      button.addEventListener("mouseenter", function () {
+        button.children[0].classList.remove("hide");
+      });
+
+      button.addEventListener("mouseleave", function () {
+        if (!button.children[0].classList.contains("selected")) {
+          button.children[0].classList.add("hide");
+        }
+      });
+
+      button.addEventListener("click", function () {
+        if (button.children[0].classList.contains("selected")) {
+          if (button.children[0].innerHTML == "arrow_drop_down") {
+            button.children[0].innerHTML = "arrow_drop_up";
+          } else {
+            button.children[0].innerHTML = "arrow_drop_down";
+          }
+        } else {
+          button.children[0].classList.add("selected");
+        }
+        buttons.forEach((btn) => {
+          if (btn != button) {
+            btn.children[0].classList.remove("selected");
+            btn.children[0].classList.add("hide");
+            btn.children[0].innerHTML = "arrow_drop_down";
+          }
+        });
+      });
+    });
+  </script>
+</div>
