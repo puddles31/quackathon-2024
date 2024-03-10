@@ -1,36 +1,36 @@
 <nav class="flex items-center justify-between flex-wrap bg-yellow-300 px-6">
   <div class="flex items-center flex-shrink-0 text-black mx-6 py-4 mr-8">
-    <form class="m-0" method="get" action="/">
-      <button type="submit" class="font-bold text-3xl align-middle transition hover:scale-105 tracking-normal">
+    <div class="m-0">
+      <a href="/" class="inline-block font-bold text-3xl align-middle transition hover:scale-105 tracking-normal">
         <span class="text-2xl align-bottom material-symbols-outlined pr-1">savings</span>
         Bask.it
-      </button>
-    </form>
+      </a>
+    </div>
   </div>
   
   <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto ml-4">
-    <form class="m-0" method="get" action="/child-savings">
-      <button type="submit" class="inline-block text-lg font-bold px-9 py-6 leading-none hover:bg-black hover:text-yellow-400 lg:mt-0" <% if (title == "Child Savings") { %> style="text-decoration: underline"<% } %> >
+    <div class="m-0">
+      <a href="/child-savings" class="inline-block text-lg font-bold px-9 py-6 leading-none hover:bg-black hover:text-yellow-400 lg:mt-0" <% if (title == "Child Savings") { %> style="text-decoration: underline"<% } %> >
         Child Savings
-      </button>
-    </form>
+      </a>
+    </div>
 
-    <form class="m-0" method="get" action="/pensions">
-      <button type="submit" class="inline-block text-lg font-bold px-9 py-6 leading-none hover:bg-black hover:text-yellow-400 lg:mt-0" <% if (title == "Pensions") { %> style="text-decoration: underline"<% } %> >
+    <div class="m-0">
+      <a href="/pensions" class="inline-block text-lg font-bold px-9 py-6 leading-none hover:bg-black hover:text-yellow-400 lg:mt-0" <% if (title == "Pensions") { %> style="text-decoration: underline"<% } %> >
         Pensions
-      </button>
-    </form>
+      </a>
+    </div>
     
-    <form class="m-0" method="get" action="/LISA">
-      <button type="submit" class="inline-block text-lg font-bold px-9 py-6 leading-none hover:bg-black hover:text-yellow-400 lg:mt-0" <% if (title == "LISA") { %> style="text-decoration: underline"<% } %> >
+    <div class="m-0">
+      <a href="/lisa" class="inline-block text-lg font-bold px-9 py-6 leading-none hover:bg-black hover:text-yellow-400 lg:mt-0" <% if (title == "LISA") { %> style="text-decoration: underline"<% } %> >
         LISA
-      </button>
-    </form>
+      </a>
+    </div>
 
-    <form class="m-0" method="get" action="/compounding">
-      <button type="submit" class="inline-block text-lg font-bold px-9 py-6 leading-none hover:bg-black hover:text-yellow-400 lg:mt-0" <% if (title == "Compound Interest") { %> style="text-decoration: underline"<% } %> >
+    <div class="m-0">
+      <a href="/compounding" class="inline-block text-lg font-bold px-9 py-6 leading-none hover:bg-black hover:text-yellow-400 lg:mt-0" <% if (title == "Compound Interest") { %> style="text-decoration: underline"<% } %> >
         Compound Interest
-      </button>
-    </form>
+      </a>
+    </div>
   </div>
 </nav>
