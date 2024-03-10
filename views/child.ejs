@@ -1,18 +1,21 @@
 <%- include('./partials/header.ejs') %> <%- include('./partials/nav.ejs') %>
 
-<div class="container px-4 lg:px-0 lg:w-2/3">
-  <div class="py-8 lg:py-16">
-    <div>
-      <div class="text-center">
+<div class="relative">
+    <div class="absolute inset-0 bg-black opacity-60"></div>
+    <img class="w-full h-48 object-cover" src="/dist/coins.jpg">
+    
+    <div class="absolute inset-0 flex flex-col justify-center items-center text-white z-10">
         <h1 class="text-5xl font-semibold">
-          <span class="text-3xl material-symbols-outlined pr-2">savings</span
-          >Bask<span class="text-yellow-400">.it</span> - Child Savings Planner
-        </h1>
-        <h2 class="text-lg mt-4">
-          An understandable savings planner for parents and their children
-        </h2>
-      </div>
+            <span class="text-3xl material-symbols-outlined pr-2">savings</span
+            >Bask<span class="text-yellow-400">.it</span>
+          </h1>
+          <h2 class="text-lg mt-4">
+            An understandable savings planner for parents and their children
+          </h2>
+    </div>
+</div>
 
+<div class="container px-4 lg:px-0 lg:w-2/3 pb-8 lg:pb-16">        
       <div class="lg:grid grid-cols-3 gap-x-16 mt-8">
         <form method="post" action="/formsubmit">
           <label>Child's Age</label>
@@ -138,17 +141,17 @@
           </div>
 
           <% } %>
-        </div>
       </div>
     </div>
 
-    <div class="mt-16">
+    <% if (graphData.length > 0){ %>
+        <% console.log(graphData.length) %>
+    <div class="mt-16 bg-yellow-300 rounded-2xl p-8">
       <canvas id="chart1"></canvas>
 
       <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
       <script>
-        <% if (graphData.length > 0){ %>
-            const colours = ['Crimson', 'RoyalBlue', 'LimeGreen', 'Yellow', 'HotPink', 'DarkOrange', 'Orchid', 'ForestGreen', 'Aqua', 'Peru']
+            const colours = ['Crimson', 'RoyalBlue', 'LimeGreen', 'LightSlateGray', 'HotPink', 'DarkOrange', 'Orchid', 'ForestGreen', 'Aqua', 'Peru']
 
             const ctx2 = document.getElementById('chart1');
             var graphData = <%- JSON.stringify(graphData) %>;
@@ -203,9 +206,9 @@
                 }
             }
             });
-        <% } %>
       </script>
     </div>
+    <% } %>
     <% if (data.length > 0) { %>
     <div class="grid grid-cols-1 mt-8">
       <div class="col-span-2">
@@ -261,7 +264,7 @@
       </div>
     </div>
     <% } %>
-  </div>
+  
 
   <script>
     let isAsc = true;
