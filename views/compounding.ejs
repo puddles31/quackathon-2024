@@ -15,10 +15,23 @@
   <div class="lg:grid grid-cols-3 gap-x-16 mt-8">
     <form method="post" action="/compounding">
       <label>Current Balance</label>
-      <input required type="number" name="balance" min="0" />
+      <input
+        value="<%= balance %>"
+        required
+        type="number"
+        name="balance"
+        min="0"
+      />
 
       <label class="mt-5">Interest Rate (%)</label>
-      <input required type="decimal" name="interest_rate" min="0" max="20" />
+      <input
+        value="<%= interest_rate %>"
+        required
+        type="decimal"
+        name="interest_rate"
+        min="0"
+        max="20"
+      />
 
       <button
         type="submit"
