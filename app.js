@@ -93,12 +93,14 @@ app.post("/formsubmit_compounding", (req, res) => {
 
   let totalValue = 0;
   let graphData = [];
-  totalValue += balance;
+  totalValue += parseFloat(balance);
   for (let i = 1; i <= 50; i++) {
-    totalValue += totalValue * (interest_rate / 100); // * 0.04
+    totalValue += parseFloat(totalValue) * (parseFloat(interest_rate) / 100); // * 0.04
 
     graphData.push(totalValue);
   }
+
+  console.log(graphData);
 
   res.render("compounding", {
     title: "Savings Planner",

@@ -63,15 +63,22 @@ button.tab.selected {
 }
 
 .dark-overlay {
-    @apply absolute inset-0 bg-black opacity-60 rounded-2xl;
+    @apply absolute inset-0 bg-black opacity-60 rounded-2xl z-10;
 }
 
 .grid-btn {
-    @apply relative;
+    @apply relative overflow-hidden rounded-2xl;
 }
 .grid-btn:hover .dark-overlay {
     @apply opacity-70;
 }
 .grid-btn:hover h4 {
     @apply text-yellow-400;
+}
+
+.zoom-container {
+    @apply transition duration-500;
+}
+.grid-btn:hover .zoom-container {
+    transform: scale(1.05);
 }
