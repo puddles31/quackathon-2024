@@ -10,19 +10,27 @@
   
   <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto ml-4">
     <form class="m-0" method="get" action="/child-savings">
-      <button type="submit" class="inline-block text-lg font-bold px-9 py-6 leading-none hover:bg-black hover:text-yellow-400 lg:mt-0">Child Savings</button>
+      <button type="submit" class="inline-block text-lg font-bold px-9 py-6 leading-none hover:bg-black hover:text-yellow-400 lg:mt-0" <% if (title == "Child") { %> style="text-decoration: underline"<% } %> >
+        Child Savings
+      </button>
     </form>
 
     <form class="m-0" method="get" action="/pensions">
-      <button type="submit" class="inline-block text-lg font-bold px-9 py-6 leading-none hover:bg-black hover:text-yellow-400 lg:mt-0">Pensions</button>
+      <button type="submit" class="inline-block text-lg font-bold px-9 py-6 leading-none hover:bg-black hover:text-yellow-400 lg:mt-0" <% if (title == "Pensions") { %> style="text-decoration: underline"<% } %> >
+        Pensions
+      </button>
     </form>
     
     <form class="m-0" method="get" action="/LISA">
-      <button type="submit" class="inline-block text-lg font-bold px-9 py-6 leading-none hover:bg-black hover:text-yellow-400 lg:mt-0">LISA</button>
+      <button type="submit" class="inline-block text-lg font-bold px-9 py-6 leading-none hover:bg-black hover:text-yellow-400 lg:mt-0" <% if (title == "LISA") { %> style="text-decoration: underline"<% } %> >
+        LISA
+      </button>
     </form>
 
     <form class="m-0" method="get" action="/compounding">
-      <button type="submit" class="inline-block text-lg font-bold px-9 py-6 leading-none hover:bg-black hover:text-yellow-400 lg:mt-0">Compound Interest</button>
+      <button type="submit" class="inline-block text-lg font-bold px-9 py-6 leading-none hover:bg-black hover:text-yellow-400 lg:mt-0" <% if (title == "Compounding") { %> style="text-decoration: underline"<% } %> >
+        Compound Interest
+      </button>
     </form>
   </div>
 </nav>
