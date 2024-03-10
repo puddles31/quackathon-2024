@@ -117,7 +117,13 @@ app.post("/formsubmit", (req, res) => {
     // return `Save £${item[0]} per month for ${item[1]} years at ${
     //   item[2]
     // }% interest to get £${item[3].toFixed(2)}`;
-    return [item[0], item[1], item[2], numberWithCommas(item[3].toFixed(2))];
+    return [
+      item[0],
+      item[1],
+      item[2],
+      item[3].toFixed(2),
+      numberWithCommas(item[3].toFixed(2)),
+    ];
   });
 
   for (let i in new_string_array) {
@@ -137,10 +143,25 @@ app.post("/formsubmit", (req, res) => {
   }
   console.log(total_graph_data_array);
 
+  // with zero interest rate:
+  let zero_interest = 0;
+  for (let i = 1; i <= duration * 12; i++) {
+    zero_interest += new_string_array[0][0];
+  }
+
+  // if spent instead:
+  let spent_instead = 0;
+  for (let i = 1; i <= duration * 12; i++) {
+    spent_instead += new_string_array[0][0];
+  }
+
   res.render("home", {
     title: "Home",
     data: new_string_array,
     graphData: total_graph_data_array,
+    spent_instead: numberWithCommas(spent_instead),
+    zero_interest_string: numberWithCommas(zero_interest),
+    zero_interest: zero_interest,
   });
 });
 
