@@ -38,7 +38,7 @@ textarea {
   @apply border-b;
 }
 .recommended-box {
-  @apply bg-yellow-300 px-4 py-4 rounded-xl;
+  @apply border-t border-l border-r border-b border-gray-900 px-4 py-4;
 }
 
 table th {
@@ -57,8 +57,6 @@ button.tab {
 button.tab.selected {
   @apply bg-yellow-300 font-medium;
 }
-
-
 
 .hide {
   visibility: hidden;
