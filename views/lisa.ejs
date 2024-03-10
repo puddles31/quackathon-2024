@@ -221,11 +221,11 @@
   <% if (data.length > 0) { %>
   <div class="grid grid-cols-1 mt-8">
     <div class="col-span-2">
-      <h1 class="text-3xl mt-4 mb-4 font-bold">Savings Account vs Cash</h1>
+      <h1 class="text-3xl mt-4 mb-4 font-bold">LISA Account vs Cash</h1>
 
       <p class="mt-4 text-lg">
         If you saved your £<%= data[0][0] %> per month as cash instead of in a
-        savings account. After <%= data[0][1] %> years, you would have
+        LISA account. After <%= data[0][1] %> years, you would have
         <span class="text-red-600 inline">£<%= zero_interest_string %></span>
         instead of
         <span class="text-green-600 inline">£<%= data[0][4] %></span>.
@@ -233,12 +233,7 @@
 
       <p class="mt-4 text-lg">
         You would have missed out on £<%= (data[0][3] -
-        zero_interest).toFixed(2) %> in interest. For free!
-      </p>
-
-      <p class="mt-4 text-lg">
-        Actually the value of your money would have decreased thanks to
-        inflation.
+        zero_interest).toFixed(2) %> in interest and bonuses. For free!
       </p>
     </div>
   </div>
