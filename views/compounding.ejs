@@ -6,20 +6,14 @@
       <div class="text-center">
         <h1 class="text-5xl font-semibold">
           <span class="text-3xl material-symbols-outlined pr-2">savings</span
-          >Bask<span class="text-yellow-400">.it</span>
+          >Bask<span class="text-yellow-400">.it</span> - Compounding Interest
         </h1>
       </div>
 
       <div class="lg:grid grid-cols-3 gap-x-16 mt-8">
-        <form method="post" action="/formsubmit">
-          <label>Child's Age</label>
-          <input type="number" name="age" min="0" />
-
-          <label class="mt-5">Age of Payment</label>
-          <input type="number" name="age_of_payment" min="0" max="100" />
-
-          <label class="mt-5">Goal Amount (£)</label>
-          <input type="number" name="goal_amount" min="0" />
+        <form method="post" action="/formsubmit_compounding">
+          <label>Current Balance</label>
+          <input type="number" name="balance" min="0" />
 
           <label class="mt-5">Interest Rate (%)</label>
           <input type="decimal" name="interest_rate" min="0" max="20" />
@@ -34,110 +28,30 @@
 
         <div class="col-span-2">
           <h2 class="lg:text-lg mt-4 mb-4">
-            An understandable savings planner for parents and their children
+            Albert Einstein once said that compound interest is the 8th wonder
+            of the world. He who understands it, earns it; he who doesn't, pays
+            it.
           </h2>
+
           <h2 class="lg:text-lg mt-4 mb-4">
-            Our Bask.it algorithm calculates the most manageable and accurate
-            savings plan that will get you to your goal. We prioritise
-            affordable savings first, and speed second.
+            A good rule of thumb to calculate the power of compound interest is
+            the rule of 72. Divide 72 by the interest rate to find out how many
+            years it will take for your money to double.
           </h2>
 
-          <% if (data.length > 0) { %>
-          <h2 class="hide-initial lg:text-lg mt-4 mb-4">
-            In order of ease and efficiency, we recommend the following:
+          <% if (result) { %>
+          <h2 class="lg:text-lg mt-4 mb-4">
+            Your balance will double every <%= result %> years
           </h2>
-
-          <% if (data.length !== 0) { %>
-          <div class="recommended-box mb-5">
-            <p class="font-semibold">
-              Save £<%= data[0][0] %> per month for <%= data[0][1] %> years at
-              <%= data[0][2] %>% interest to get £<%= data[0][4] %>
-            </p>
-          </div>
-          <% } %>
-
-          <div class="mb-4 mt-10">
-            <p class="font-medium">Sort By:</p>
-            <div class="lg:grid grid-cols-3 gap-x-4">
-              <button
-                onclick="sortTable('monthly')"
-                class="sort bg-yellow-300 mt-2 hover:bg-yellow-400 font-bold py-2 pl-4 pr-2 mx-2 rounded"
-              >
-                Monthly Deposit Amount
-                <span class="selected align-bottom material-symbols-outlined"
-                  >arrow_drop_down</span
-                >
-              </button>
-              <button
-                onclick="sortTable('years')"
-                class="sort bg-yellow-300 mt-2 hover:bg-yellow-400 font-bold py-2 pl-4 pr-2 mx-2 rounded"
-              >
-                Number of Years
-                <span class="hide align-bottom material-symbols-outlined"
-                  >arrow_drop_down</span
-                >
-              </button>
-              <button
-                onclick="sortTable('total')"
-                class="sort bg-yellow-300 mt-2 hover:bg-yellow-400 font-bold py-2 pl-4 pr-2 mx-2 rounded"
-              >
-                Total Savings Amount
-                <span class="hide align-bottom material-symbols-outlined"
-                  >arrow_drop_down</span
-                >
-              </button>
-            </div>
-          </div>
-          <% } %> <% if (data[0]){ %>
-          <div class="grid grid-cols-2">
-            <button class="tab rounded-tl-md selected" value="text">
-              Simple View
-            </button>
-            <button class="tab border-r rounded-tr-md" value="table">
-              Table View
-            </button>
-          </div>
-
-          <div id="text_view">
-            <% for (const i in data) { %>
-            <div class="display-box">
-              <p
-                data-monthly="<%= data[i][0] %>"
-                data-years="<%= data[i][1] %>"
-                data-total="<%= data[i][4] %>"
-              >
-                Save <span class="font-medium">£<%= data[i][0] %></span> per
-                month for <%= data[i][1] %> <%- data[i][1] > 1 ? 'years':'year'
-                %> at <%= data[i][2] %>% interest to get
-                <span class="font-medium">£<%= data[i][4] %></span>
-              </p>
-            </div>
             <% } %>
+
+          
+       
           </div>
 
-          <div id="table_view" class="hidden">
-            <div
-              class="border-gray-800 border-t border-l border-r px-2 py-0.5 font-semibold text-center text-sm italic"
-            >
-              <%= data[0][2] %>% Interest Rate
-            </div>
-            <table class="w-full">
-              <tr>
-                <th>Timespan</th>
-                <th>Saving per Month</th>
-                <th>Return</th>
-              </tr>
-              <% for (const i in data) { %>
-              <tr>
-                <td><%= data[i][1] %> years</td>
-                <td>£<%= data[i][0] %></td>
-                <td>£<%= data[i][4] %></td>
-              </tr>
-              <% } %>
-            </table>
-          </div>
+        
 
-          <% } %>
+      
         </div>
       </div>
     </div>
@@ -159,7 +73,7 @@
                 datasets: [{
                     <% for (const i in graphData) { %>
                         type: 'line',
-                        label: '£<%= data[i][0] %>',
+                        label: 'Hello',
                         data: [
                             <% for (const k in graphData[i]) { %>
                                 <%= graphData[i][k] %>,
@@ -206,61 +120,7 @@
         <% } %>
       </script>
     </div>
-    <% if (data.length > 0) { %>
-    <div class="grid grid-cols-1 mt-8">
-      <div class="col-span-2">
-        <h1 class="text-3xl mt-4 mb-4 font-bold">Savings Account vs Cash</h1>
-
-        <p class="mt-4 text-lg">
-          If you saved your £<%= data[0][0] %> per month as cash instead of in a
-          savings account. After <%= data[0][1] %> years, you would have £<%=
-          zero_interest_string %> instead of £<%= data[0][4] %>.
-        </p>
-
-        <p class="mt-4 text-lg">
-          You would have missed out on £<%= (data[0][3] -
-          zero_interest).toFixed(2) %> in interest. For free!
-        </p>
-
-        <p class="mt-4 text-lg">
-          Actually the value of your money would have decreased thanks to
-          inflation.
-        </p>
-      </div>
-    </div>
-    <% } %> <% if (data.length > 0) { %>
-    <div class="grid grid-cols-1 mt-8">
-      <div class="col-span-2">
-        <h1 class="text-3xl mt-4 mb-4 font-bold">
-          Saving is more powerful than spending
-        </h1>
-
-        <p class="mt-4 text-lg">
-          If instead of saving, you spent £<%= data[0][0] %> per month for <%=
-          data[0][1] %> years, you would have lost
-          <span class="text-red-600 inline">£<%= spent_instead %></span>.
-        </p>
-
-        <p class="mt-4 text-lg">
-          However, by saving £<%= data[0][0] %> per month for <%= data[0][1] %>
-          years, you would have gained
-          <span class="text-green-600 inline"
-            >£<%= (data[0][3]).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-            %></span
-          >
-          instead.
-        </p>
-
-        <p class="mt-4 text-lg">
-          This is a difference of
-          <span class="inline"
-            >£<%= parseFloat((data[0][3]) - (data[0][0] * 12 *
-            data[0][1])).toFixed(2) %></span
-          >.
-        </p>
-      </div>
-    </div>
-    <% } %>
+   
   </div>
 
   <script>
