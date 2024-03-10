@@ -4,7 +4,10 @@
   <div class="py-8 lg:py-16">
     <div>
       <div class="text-center">
-        <h1 class="text-5xl font-semibold"><span class="text-3xl material-symbols-outlined pr-2">savings</span>Bask<span class="text-yellow-400">.it</span></h1>
+        <h1 class="text-5xl font-semibold">
+          <span class="text-3xl material-symbols-outlined pr-2">savings</span
+          >Bask<span class="text-yellow-400">.it</span>
+        </h1>
         <h2 class="text-lg mt-4">
           An understandable savings planner for parents and their children
         </h2>
@@ -203,7 +206,7 @@
         <% } %>
       </script>
     </div>
-
+    <% if (data.length > 0) { %>
     <div class="grid grid-cols-1 mt-8">
       <div class="col-span-2">
         <h1 class="text-3xl mt-4 mb-4 font-bold">Savings Account vs Cash</h1>
@@ -225,7 +228,7 @@
         </p>
       </div>
     </div>
-
+    <% } %> <% if (data.length > 0) { %>
     <div class="grid grid-cols-1 mt-8">
       <div class="col-span-2">
         <h1 class="text-3xl mt-4 mb-4 font-bold">
@@ -257,6 +260,7 @@
         </p>
       </div>
     </div>
+    <% } %>
   </div>
 
   <script>
