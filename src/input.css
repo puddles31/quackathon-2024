@@ -63,11 +63,11 @@ button.tab.selected {
 }
 
 .dark-overlay {
-    @apply absolute inset-0 bg-black opacity-60 rounded-2xl z-10;
+    @apply absolute inset-0 bg-black opacity-60 lg:rounded-2xl z-10;
 }
 
 .grid-btn {
-    @apply relative overflow-hidden rounded-2xl;
+    @apply relative overflow-hidden lg:rounded-2xl;
 }
 .grid-btn:hover .dark-overlay {
     @apply opacity-70;

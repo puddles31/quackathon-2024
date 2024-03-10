@@ -1,14 +1,17 @@
 <nav class="flex items-center justify-between flex-wrap bg-yellow-300 px-6">
-  <div class="flex items-center flex-shrink-0 text-black mx-6 py-4 mr-8">
+  <div class="flex items-center lg:flex-shrink-0 text-black mx-6 py-4 mr-8 w-full lg:w-max">
     <div class="m-0">
       <a href="/" class="inline-block font-bold text-3xl align-middle transition hover:scale-105 tracking-normal">
         <span class="text-2xl align-bottom material-symbols-outlined pr-1">savings</span>
         Bask.it
       </a>
     </div>
+
+      <span id="menuBtn" class="text-4xl align-middle material-symbols-outlined lg:hidden ml-auto">menu</span>
+  
   </div>
   
-  <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto ml-4">
+  <div id="menu" class="w-full block flex-grow lg:flex lg:items-center lg:w-auto ml-4 hidden lg:block">
     <div class="m-0">
       <a href="/child-savings" class="inline-block text-lg font-bold px-9 py-6 leading-none hover:bg-black hover:text-yellow-400 lg:mt-0" <% if (title == "Child Savings") { %> style="text-decoration: underline"<% } %> >
         Child Savings
@@ -34,3 +37,16 @@
     </div>
   </div>
 </nav>
+
+<script>
+    menuBtn = document.getElementById('menuBtn');
+    menu = document.getElementById('menu');
+
+    menuBtn.addEventListener('click', function() {
+      if (menu.classList.contains('hidden')){
+        menu.classList.remove('hidden')
+      } else {
+        menu.classList.add('hidden')
+      }
+    })
+</script>
