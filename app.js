@@ -46,6 +46,8 @@ app.get("/compounding", (req, res) => {
     data: [],
     graphData: [],
     result: 0,
+    balance: null,
+    interest_rate: null,
   });
 });
 
@@ -57,6 +59,10 @@ app.get("/child-savings", (req, res) => {
     spent_instead: "",
     zero_interest_string: "",
     zero_interest: 0,
+    age: null,
+    age_of_payment: null,
+    goal_amount: null,
+    interest_rate: null,
   });
 });
 
@@ -68,6 +74,10 @@ app.get("/pensions", (req, res) => {
     spent_instead: "",
     zero_interest_string: "",
     zero_interest: 0,
+    age: null,
+    retirement_age: null,
+    monthly_contribution: null,
+    current_pension_savings: null,
   });
 });
 
@@ -79,6 +89,10 @@ app.get("/lisa", (req, res) => {
     spent_instead: "",
     zero_interest_string: "",
     zero_interest: 0,
+    age: null,
+    age_of_payment: null,
+    goal_amount: null,
+    interest_rate: null,
   });
 });
 
@@ -105,6 +119,8 @@ app.post("/compounding", (req, res) => {
     title: "Compound Interest",
     graphData: graphData,
     result: result.toFixed(2),
+    balance,
+    interest_rate,
   });
 });
 
@@ -232,6 +248,10 @@ app.post("/child-savings", (req, res) => {
     spent_instead: numberWithCommas(spent_instead),
     zero_interest_string: numberWithCommas(zero_interest),
     zero_interest: zero_interest,
+    age,
+    age_of_payment,
+    goal_amount,
+    interest_rate,
   });
 });
 
@@ -280,6 +300,10 @@ app.post("/pensions", (req, res) => {
     pieGraphPotAfterSum: privatePensionPotAfterSum,
     barGraphPrivatePension: annualPrivatePension,
     barGraphStatePension: annualStatePension,
+    age: age,
+    retirement_age: retirement_age,
+    monthly_contribution: monthly_contribution,
+    current_pension_savings: current_pension_savings,
   });
 });
 
@@ -405,6 +429,10 @@ app.post("/lisa", (req, res) => {
     spent_instead: numberWithCommas(spent_instead),
     zero_interest_string: numberWithCommas(zero_interest),
     zero_interest: zero_interest,
+    age: age,
+    age_of_payment: age_of_payment,
+    goal_amount: goal_amount,
+    interest_rate: interest_rate,
   });
 });
 
