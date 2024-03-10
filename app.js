@@ -40,6 +40,18 @@ app.get("/", (req, res) => {
   });
 });
 
+app.get("/pensions", (req, res) => {
+  res.render("pensions", {
+    title: "Pensions"
+  });
+});
+
+app.get("/LISA", (req, res) => {
+  res.render("LISA", {
+    title: "LISA"
+  });
+});
+
 function numberWithCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
