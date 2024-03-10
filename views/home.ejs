@@ -4,7 +4,9 @@
   <div class="py-8 lg:py-16">
     <div>
       <div class="text-center">
-        <h1 class="text-5xl font-semibold">Bask<span class="text-yellow-400">.it</span></h1>
+        <h1 class="text-5xl font-semibold">
+          Bask<span class="text-yellow-400">.it</span>
+        </h1>
         <h2 class="text-lg mt-4">
           An understandable savings planner for parents and their children
         </h2>
@@ -45,85 +47,94 @@
           </h2>
 
           <% if (data.length !== 0) { %>
-          <div
-            class="recommended-box mb-5"
-      
-          >
+          <div class="recommended-box mb-5">
             <p class="font-semibold">
               Save £<%= data[0][0] %> per month for <%= data[0][1] %> years at
               <%= data[0][2] %>% interest to get £<%= data[0][3] %>
             </p>
-
           </div>
           <% } %>
 
           <div class="mb-4 mt-10">
             <p class="font-medium">Sort By:</p>
             <div class="lg:grid grid-cols-3 gap-x-4">
-                <button
+              <button
                 onclick="sortTable('monthly')"
-  
                 class="sort bg-yellow-300 mt-2 hover:bg-yellow-400 font-bold py-2 pl-4 pr-2 mx-2 rounded"
-  
               >
-                Monthly Deposit Amount <span class="selected align-bottom material-symbols-outlined">arrow_drop_down</span>
+                Monthly Deposit Amount
+                <span class="selected align-bottom material-symbols-outlined"
+                  >arrow_drop_down</span
+                >
               </button>
               <button
                 onclick="sortTable('years')"
-  
                 class="sort bg-yellow-300 mt-2 hover:bg-yellow-400 font-bold py-2 pl-4 pr-2 mx-2 rounded"
-  
               >
-                Number of Years <span class="hide align-bottom material-symbols-outlined">arrow_drop_down</span>
+                Number of Years
+                <span class="hide align-bottom material-symbols-outlined"
+                  >arrow_drop_down</span
+                >
               </button>
               <button
                 onclick="sortTable('total')"
-  
                 class="sort bg-yellow-300 mt-2 hover:bg-yellow-400 font-bold py-2 pl-4 pr-2 mx-2 rounded"
-  
               >
-                Total Savings Amount <span class="hide align-bottom material-symbols-outlined">arrow_drop_down</span>
+                Total Savings Amount
+                <span class="hide align-bottom material-symbols-outlined"
+                  >arrow_drop_down</span
+                >
               </button>
             </div>
-            
           </div>
-          <% } %>
+          <% } %> <% if (data[0]){ %>
+          <div class="grid grid-cols-2">
+            <button class="tab rounded-tl-md selected" value="text">
+              Simple View
+            </button>
+            <button class="tab border-r rounded-tr-md" value="table">
+              Table View
+            </button>
+          </div>
 
-
-          <% if (data[0]){ %>
-            <div class="grid grid-cols-2">
-                <button class="tab rounded-tl-md selected" value="text">Simple View</button>
-                <button class="tab border-r rounded-tr-md" value="table">Table View</button>
+          <div id="text_view">
+            <% for (const i in data) { %>
+            <div class="display-box">
+              <p
+                data-monthly="<%= data[i][0] %>"
+                data-years="<%= data[i][1] %>"
+                data-total="<%= data[i][3] %>"
+              >
+                Save <span class="font-medium">£<%= data[i][0] %></span> per
+                month for <%= data[i][1] %> <%- data[i][1] > 1 ? 'years':'year'
+                %> at <%= data[i][2] %>% interest to get
+                <span class="font-medium">£<%= data[i][3] %></span>
+              </p>
             </div>
+            <% } %>
+          </div>
 
-            <div id="text_view">
-                <% for (const i in data) { %>
-                    <div class="display-box">
-                      <p data-monthly="<%= data[i][0] %>" data-years="<%= data[i][1] %>" data-total="<%= data[i][3] %>">
-                        Save <span class="font-medium">£<%= data[i][0] %></span> per month for <%= data[i][1] %> <%- data[i][1] > 1 ? 'years':'year' %> at
-                        <%= data[i][2] %>% interest to get <span class="font-medium">£<%= data[i][3] %></span>
-                      </p>
-                    </div>
-                    <% } %>
-              </div>
-    
-              <div id="table_view" class="hidden">
-                <div class="border-gray-800 border-t border-l border-r px-2 py-0.5 font-semibold text-center text-sm italic"><%= data[0][2] %>% Interest Rate</div>
-                <table class="w-full">
-                  <tr>
-                      <th>Timespan</th>
-                      <th>Saving per Month</th>
-                      <th>Return</th>
-                  </tr>
-                      <% for (const i in data) { %>
-                          <tr>
-                              <td><%= data[i][1] %> years</td>
-                              <td>£<%= data[i][0] %></td>
-                              <td>£<%= data[i][3] %></td>
-                          </tr>
-                      <% } %>
-                </table>
-              </div>
+          <div id="table_view" class="hidden">
+            <div
+              class="border-gray-800 border-t border-l border-r px-2 py-0.5 font-semibold text-center text-sm italic"
+            >
+              <%= data[0][2] %>% Interest Rate
+            </div>
+            <table class="w-full">
+              <tr>
+                <th>Timespan</th>
+                <th>Saving per Month</th>
+                <th>Return</th>
+              </tr>
+              <% for (const i in data) { %>
+              <tr>
+                <td><%= data[i][1] %> years</td>
+                <td>£<%= data[i][0] %></td>
+                <td>£<%= data[i][3] %></td>
+              </tr>
+              <% } %>
+            </table>
+          </div>
 
           <% } %>
         </div>
@@ -131,235 +142,307 @@
     </div>
 
     <div class="mt-16">
-        <canvas id="chart1"></canvas>
-        
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        <script>
-            <% if (graphData.length > 0){ %>
-                const colours = ['Crimson', 'RoyalBlue', 'LimeGreen', 'Yellow', 'HotPink', 'DarkOrange', 'Orchid', 'ForestGreen', 'Aqua', 'Peru']
+      <canvas id="chart1"></canvas>
 
-                const ctx2 = document.getElementById('chart1');
-                var graphData = <%- JSON.stringify(graphData) %>;
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+      <script>
+        <% if (graphData.length > 0){ %>
+            const colours = ['Crimson', 'RoyalBlue', 'LimeGreen', 'Yellow', 'HotPink', 'DarkOrange', 'Orchid', 'ForestGreen', 'Aqua', 'Peru']
 
-                new Chart(ctx2, {
-                type: 'line',
-                data: {
-                    datasets: [{
-                        <% for (const i in graphData) { %>
-                            type: 'line',
-                            label: '£<%= data[i][0] %>',
-                            data: [
-                                <% for (const k in graphData[i]) { %>
-                                    <%= graphData[i][k] %>,
-                                <% } %>
-                            ],
-                            backgroundColor: colours[<%= i %>],
-                            borderColor: colours[<%= i %>]
-                            <% if (i < graphData.length-1) { %>
-                                }, {
+            const ctx2 = document.getElementById('chart1');
+            var graphData = <%- JSON.stringify(graphData) %>;
+
+            new Chart(ctx2, {
+            type: 'line',
+            data: {
+                datasets: [{
+                    <% for (const i in graphData) { %>
+                        type: 'line',
+                        label: '£<%= data[i][0] %>',
+                        data: [
+                            <% for (const k in graphData[i]) { %>
+                                <%= graphData[i][k] %>,
                             <% } %>
+                        ],
+                        backgroundColor: colours[<%= i %>],
+                        borderColor: colours[<%= i %>]
+                        <% if (i < graphData.length-1) { %>
+                            }, {
                         <% } %>
-                    }],
+                    <% } %>
+                }],
 
-                    labels: [
-                        <% for (const i in graphData[0]) { %>
-                            '<%= i %>', 
-                        <% } %>
-                    ]
-                },
-                options: {
-                    scales: {
-                        x: {
-                            title: {
-                                display: true,
-                                text: 'Months',
-                                font: {
-                                    size: 14
-                                }
+                labels: [
+                    <% for (const i in graphData[0]) { %>
+                        '<%= i %>',
+                    <% } %>
+                ]
+            },
+            options: {
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Months',
+                            font: {
+                                size: 14
                             }
-                        },
-                        y: {
-                            beginAtZero: true,
-                            title: {
-                                display: true,
-                                text: 'Value (£)',
-                                font: {
-                                    size: 14
-                                }
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Value (£)',
+                            font: {
+                                size: 14
                             }
                         }
                     }
                 }
-                });
-            <% } %>
-        </script>
+            }
+            });
+        <% } %>
+      </script>
+    </div>
+
+    <div class="grid grid-cols-1 mt-8">
+      <div class="col-span-2">
+        <h1 class="text-3xl mt-4 mb-4 font-bold">Savings Account vs Cash</h1>
+
+        <p class="mt-4 text-lg">
+          If you saved your £<%= data[0][0] %> per month as cash instead of in a
+          savings account. After <%= data[0][1] %> years, you would have £<%=
+          zero_interest_string %> instead of £<%= data[0][4] %>.
+        </p>
+
+        <p class="mt-4 text-lg">
+          You would have missed out on £<%= data[0][3] - zero_interest %> in
+          interest. For free!
+        </p>
+
+        <p class="mt-4 text-lg">
+          Actually the value of your money would have decreased thanks to
+          inflation.
+        </p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 mt-8">
+      <div class="col-span-2">
+        <h1 class="text-3xl mt-4 mb-4 font-bold">
+          Saving is more powerful than spending
+        </h1>
+
+        <p class="mt-4 text-lg">
+          If instead of saving, you spent £<%= data[0][0] %> per month for <%=
+          data[0][1] %> years, you would have lost
+          <span class="text-red-600 inline">£<%= spent_instead %></span>.
+        </p>
+
+        <p class="mt-4 text-lg">
+          However, by saving £<%= data[0][0] %> per month for <%= data[0][1] %>
+          years, you would have gained
+          <span class="text-green-600 inline"
+            >£<%= (data[0][3]).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+            %></span
+          >
+          instead.
+        </p>
+
+        <p class="mt-4 text-lg">
+          This is a difference of
+          <span class="inline"
+            >£<%= parseFloat(data[0][3]) - (data[0][0] * 12 * data[0][1])
+            %></span
+          >.
+        </p>
+      </div>
     </div>
   </div>
-</div>
 
-<script>
-  let isAsc = true;
-  let lastAttr = "";
+  <script>
+    let isAsc = true;
+    let lastAttr = "";
 
-  function sortTable(attr) {
-    var rows, swapping, i, x, y, shouldSwap;
-    swapping = true;
+    function sortTable(attr) {
+      var rows, swapping, i, x, y, shouldSwap;
+      swapping = true;
 
-    if (attr == lastAttr) {
-      isAsc = !isAsc;
-    } else {
-      isAsc = true;
-    }
-
-    lastAttr = attr;
-
-
-    if (document.getElementById('text_view').classList.contains('hidden')) {
-      // Keep looping until no more row swaps have been made
-      while (swapping) {
-        swapping = false;
-        rows = document.querySelectorAll("table tr:not(:first-child)");
-        
-        // Loop through all rows
-        for (i = 0; i < rows.length - 1; i++) {
-          shouldSwap = false;
-          
-          /* Get the two elements you want to compare,
-          one from current row and one from the next: */
-
-          switch (attr) {
-            case "years":
-              x = rows[i].getElementsByTagName("td")[0].innerHTML.replace(" years", "");
-              y = rows[i + 1].getElementsByTagName("td")[0].innerHTML.replace(" years", "");
-              break;
-            case "monthly":
-              x = rows[i].getElementsByTagName("td")[1].innerHTML.replace("£", "");
-              y = rows[i + 1].getElementsByTagName("td")[1].innerHTML.replace("£", "");
-              break;
-            case "total":
-              x = rows[i].getElementsByTagName("td")[2].innerHTML.replace("£", "");
-              y = rows[i + 1].getElementsByTagName("td")[2].innerHTML.replace("£", "");
-              break;
-          }
-          
-
-          // Check if the two rows should switch place
-          if ((isAsc && parseFloat(x) > parseFloat(y)) || (!isAsc && parseFloat(x) < parseFloat(y))) {
-            // If so, mark as a switch and break the loop
-            shouldSwap = true;
-            break;
-          }
-        }
-        if (shouldSwap) {
-          /* If a switch has been marked, make the switch
-          and mark that a switch has been done: */
-          rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-          swapping = true;
-        }
+      if (attr == lastAttr) {
+        isAsc = !isAsc;
+      } else {
+        isAsc = true;
       }
-    }
-    else {
-      // Keep looping until no more row swaps have been made
-      while (swapping) {
-        swapping = false;
-        rows = document.querySelectorAll(".display-box");
-        
-        // Loop through all rows
-        for (i = 0; i < rows.length - 1; i++) {
-          shouldSwap = false;
-          
-          /* Get the two elements you want to compare,
-          one from current row and one from the next: */
-          x = rows[i].getElementsByTagName("p")[0];
-          y = rows[i + 1].getElementsByTagName("p")[0];
 
-          // Check if the two rows should switch place
-          if (attr == "total") {
-            if ((isAsc && parseFloat(x.dataset.total.replace(",", "")) > parseFloat(y.dataset.total.replace(",", ""))) || (!isAsc && parseFloat(x.dataset.total.replace(",", "")) < parseFloat(y.dataset.total.replace(",", "")))) {
+      lastAttr = attr;
+
+      if (document.getElementById("text_view").classList.contains("hidden")) {
+        // Keep looping until no more row swaps have been made
+        while (swapping) {
+          swapping = false;
+          rows = document.querySelectorAll("table tr:not(:first-child)");
+
+          // Loop through all rows
+          for (i = 0; i < rows.length - 1; i++) {
+            shouldSwap = false;
+
+            /* Get the two elements you want to compare,
+          one from current row and one from the next: */
+
+            switch (attr) {
+              case "years":
+                x = rows[i]
+                  .getElementsByTagName("td")[0]
+                  .innerHTML.replace(" years", "");
+                y = rows[i + 1]
+                  .getElementsByTagName("td")[0]
+                  .innerHTML.replace(" years", "");
+                break;
+              case "monthly":
+                x = rows[i]
+                  .getElementsByTagName("td")[1]
+                  .innerHTML.replace("£", "");
+                y = rows[i + 1]
+                  .getElementsByTagName("td")[1]
+                  .innerHTML.replace("£", "");
+                break;
+              case "total":
+                x = rows[i]
+                  .getElementsByTagName("td")[2]
+                  .innerHTML.replace("£", "");
+                y = rows[i + 1]
+                  .getElementsByTagName("td")[2]
+                  .innerHTML.replace("£", "");
+                break;
+            }
+
+            // Check if the two rows should switch place
+            if (
+              (isAsc && parseFloat(x) > parseFloat(y)) ||
+              (!isAsc && parseFloat(x) < parseFloat(y))
+            ) {
               // If so, mark as a switch and break the loop
               shouldSwap = true;
               break;
             }
           }
-          else if ((isAsc && parseFloat(x.dataset[`${attr}`]) > parseFloat(y.dataset[`${attr}`])) || (!isAsc && parseFloat(x.dataset[`${attr}`]) < parseFloat(y.dataset[`${attr}`]))) {
-            // If so, mark as a switch and break the loop
-            shouldSwap = true;
-            break;
-          }
-          
-        }
-        if (shouldSwap) {
-          /* If a switch has been marked, make the switch
+          if (shouldSwap) {
+            /* If a switch has been marked, make the switch
           and mark that a switch has been done: */
-          rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-          swapping = true;
+            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+            swapping = true;
+          }
+        }
+      } else {
+        // Keep looping until no more row swaps have been made
+        while (swapping) {
+          swapping = false;
+          rows = document.querySelectorAll(".display-box");
+
+          // Loop through all rows
+          for (i = 0; i < rows.length - 1; i++) {
+            shouldSwap = false;
+
+            /* Get the two elements you want to compare,
+          one from current row and one from the next: */
+            x = rows[i].getElementsByTagName("p")[0];
+            y = rows[i + 1].getElementsByTagName("p")[0];
+
+            // Check if the two rows should switch place
+            if (attr == "total") {
+              if (
+                (isAsc &&
+                  parseFloat(x.dataset.total.replace(",", "")) >
+                    parseFloat(y.dataset.total.replace(",", ""))) ||
+                (!isAsc &&
+                  parseFloat(x.dataset.total.replace(",", "")) <
+                    parseFloat(y.dataset.total.replace(",", "")))
+              ) {
+                // If so, mark as a switch and break the loop
+                shouldSwap = true;
+                break;
+              }
+            } else if (
+              (isAsc &&
+                parseFloat(x.dataset[`${attr}`]) >
+                  parseFloat(y.dataset[`${attr}`])) ||
+              (!isAsc &&
+                parseFloat(x.dataset[`${attr}`]) <
+                  parseFloat(y.dataset[`${attr}`]))
+            ) {
+              // If so, mark as a switch and break the loop
+              shouldSwap = true;
+              break;
+            }
+          }
+          if (shouldSwap) {
+            /* If a switch has been marked, make the switch
+          and mark that a switch has been done: */
+            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+            swapping = true;
+          }
         }
       }
     }
+  </script>
 
-    
-  }
-</script>
+  <%- include('./partials/footer.ejs') %>
 
-<%- include('./partials/footer.ejs') %>
+  <script>
+    var tabs = Array.from(document.getElementsByClassName("tab"));
+    const text_view = document.getElementById("text_view");
+    const table_view = document.getElementById("table_view");
 
-
-<script>
-    var tabs = Array.from(document.getElementsByClassName('tab'));
-    const text_view = document.getElementById('text_view');
-    const table_view = document.getElementById('table_view');
-    
     tabs.forEach((tab) => {
-        tab.addEventListener('click', function(){
-            var view = this.value;
-            tabs.forEach((tab_btn) => {
-                tab_btn.classList.remove('selected');
-            })
+      tab.addEventListener("click", function () {
+        var view = this.value;
+        tabs.forEach((tab_btn) => {
+          tab_btn.classList.remove("selected");
+        });
 
-            if (view == 'text'){
-                text_view.classList.remove('hidden');
-                table_view.classList.add('hidden');
-                tab.classList.add('selected');
-            } else {
-                table_view.classList.remove('hidden');
-                text_view.classList.add('hidden');
-                tab.classList.add('selected');
-            }
-        })
+        if (view == "text") {
+          text_view.classList.remove("hidden");
+          table_view.classList.add("hidden");
+          tab.classList.add("selected");
+        } else {
+          table_view.classList.remove("hidden");
+          text_view.classList.add("hidden");
+          tab.classList.add("selected");
+        }
+      });
     });
-    
 
-    const buttons = Array.from(document.querySelectorAll('.sort'));
+    const buttons = Array.from(document.querySelectorAll(".sort"));
     buttons.forEach((button) => {
-        button.addEventListener('mouseenter', function(){
-            button.children[0].classList.remove('hide');
-        });
+      button.addEventListener("mouseenter", function () {
+        button.children[0].classList.remove("hide");
+      });
 
-        button.addEventListener('mouseleave', function(){
-            if (!button.children[0].classList.contains("selected")){
-                button.children[0].classList.add('hide');
-            }
-        });
+      button.addEventListener("mouseleave", function () {
+        if (!button.children[0].classList.contains("selected")) {
+          button.children[0].classList.add("hide");
+        }
+      });
 
-        button.addEventListener('click', function(){
-            if (button.children[0].classList.contains('selected')){
-                if (button.children[0].innerHTML == "arrow_drop_down") {
-                    button.children[0].innerHTML = "arrow_drop_up";
-                }
-                else {
-                    button.children[0].innerHTML = "arrow_drop_down";
-                }
-            }
-            else {
-                button.children[0].classList.add('selected');
-            }
-            buttons.forEach((btn) => {
-                if (btn != button){
-                    btn.children[0].classList.remove('selected');
-                    btn.children[0].classList.add('hide');
-                    btn.children[0].innerHTML = "arrow_drop_down";
-                }
-            });
+      button.addEventListener("click", function () {
+        if (button.children[0].classList.contains("selected")) {
+          if (button.children[0].innerHTML == "arrow_drop_down") {
+            button.children[0].innerHTML = "arrow_drop_up";
+          } else {
+            button.children[0].innerHTML = "arrow_drop_down";
+          }
+        } else {
+          button.children[0].classList.add("selected");
+        }
+        buttons.forEach((btn) => {
+          if (btn != button) {
+            btn.children[0].classList.remove("selected");
+            btn.children[0].classList.add("hide");
+            btn.children[0].innerHTML = "arrow_drop_down";
+          }
         });
+      });
     });
-</script>
+  </script>
+</div>
