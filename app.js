@@ -213,13 +213,15 @@ app.post("/child-savings", (req, res) => {
 
   // with zero interest rate:
   let zero_interest = 0;
-  for (let i = 1; i <= duration * 12; i++) {
+  for (let i = 1; i <= new_string_array[0][1] * 12; i++) {
     zero_interest += new_string_array[0][0];
   }
 
+  console.log(zero_interest);
+
   // if spent instead:
   let spent_instead = 0;
-  for (let i = 1; i <= duration * 12; i++) {
+  for (let i = 1; i <= new_string_array[0][1] * 12; i++) {
     spent_instead += new_string_array[0][0];
   }
 
@@ -234,19 +236,19 @@ app.post("/child-savings", (req, res) => {
 });
 
 app.post("/pensions", (req, res) => {
-  const {
-    age,
-    retirement_age,
-    monthly_contribution,
-    current_pension_savings,
-  } = req.body;
+  const { age, retirement_age, monthly_contribution, current_pension_savings } =
+    req.body;
 
   const yearsUntilRetirement = retirement_age - age; // Calculate the number of years until retirement
 
   let graphData = [];
   let yearlyValues = [];
 
-  for (let annualGrowthRate = 1.05; annualGrowthRate >= 1.02; annualGrowthRate -= 0.015) {
+  for (
+    let annualGrowthRate = 1.05;
+    annualGrowthRate >= 1.02;
+    annualGrowthRate -= 0.015
+  ) {
     // for years calculate the pension pot value at the end of each year
     yearlyValues = [];
     let totalPensionPot = parseInt(current_pension_savings);
@@ -255,19 +257,18 @@ app.post("/pensions", (req, res) => {
       // Calculate the pension pot value at the end of the year
       totalPensionPot =
         parseInt(totalPensionPot) + parseInt(monthly_contribution) * 12; // Add contribution to the pension pot
-      totalPensionPot =
-        parseInt(totalPensionPot) * annualGrowthRate; // Add annual growth to the pension pot
+      totalPensionPot = parseInt(totalPensionPot) * annualGrowthRate; // Add annual growth to the pension pot
       yearlyValues.push(totalPensionPot); // Add the pension pot value to the array
     }
 
     graphData.push(yearlyValues);
   }
   // console.log(graphData);
-  
+
   // Retain yearlyValues for 2% growth rate
   const privatePensionPot = yearlyValues[yearlyValues.length - 1]; // Total pension pot value
   const taxFreeLumpSum = 0.25 * privatePensionPot; // 25% tax free lump sum
-  const privatePensionPotAfterSum = privatePensionPot - taxFreeLumpSum;  // Remaining pension pot
+  const privatePensionPotAfterSum = privatePensionPot - taxFreeLumpSum; // Remaining pension pot
   const annualPrivatePension = privatePensionPotAfterSum / 20; // 20 year annuity
 
   const annualStatePension = 10600; // Annual state pension
@@ -278,7 +279,7 @@ app.post("/pensions", (req, res) => {
     pieGraphLumpSum: taxFreeLumpSum,
     pieGraphPotAfterSum: privatePensionPotAfterSum,
     barGraphPrivatePension: annualPrivatePension,
-    barGraphStatePension: annualStatePension
+    barGraphStatePension: annualStatePension,
   });
 });
 
@@ -387,13 +388,13 @@ app.post("/lisa", (req, res) => {
 
   // with zero interest rate:
   let zero_interest = 0;
-  for (let i = 1; i <= duration * 12; i++) {
+  for (let i = 1; i <= new_string_array[0][1] * 12; i++) {
     zero_interest += new_string_array[0][0];
   }
 
   // if spent instead:
   let spent_instead = 0;
-  for (let i = 1; i <= duration * 12; i++) {
+  for (let i = 1; i <= new_string_array[0][1] * 12; i++) {
     spent_instead += new_string_array[0][0];
   }
 
