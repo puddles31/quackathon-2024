@@ -34,6 +34,9 @@ app.get("/", (req, res) => {
     title: "Home",
     data: [],
     graphData: [],
+    spent_instead: "",
+    zero_interest_string: "",
+    zero_interest: 0,
   });
 });
 
