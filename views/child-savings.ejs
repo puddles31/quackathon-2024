@@ -13,18 +13,55 @@
 
 <div class="container px-4 lg:px-0 lg:w-2/3 pb-8 lg:pb-16">
   <div class="lg:grid grid-cols-3 gap-x-16 mt-8">
-    <form name="child-savings-form" onsubmit="return validateForm()" method="post" action="/child-savings">
+    <form
+      name="child-savings-form"
+      onsubmit="return validateForm()"
+      method="post"
+      action="/child-savings"
+    >
       <label>Child's Age</label>
-      <input required type="number" name="age" title="How old your child is currently" min="0" max="100" />
+      <input
+        value="<%= age %>"
+        required
+        type="number"
+        name="age"
+        title="How old your child is currently"
+        min="0"
+        max="100"
+      />
 
       <label class="mt-5">Age of Payment</label>
-      <input required type="number" name="age_of_payment" title="How old your child is when they receive the payment" min="0" max="100" />
+      <input
+        value="<%= age_of_payment %>"
+        required
+        type="number"
+        name="age_of_payment"
+        title="How old your child is when they receive the payment"
+        min="0"
+        max="100"
+      />
 
       <label class="mt-5">Goal Amount (£)</label>
-      <input required type="number" name="goal_amount" title="The total amount of money you want to save" min="0" max="3000000"/>
+      <input
+        value="<%= goal_amount %>"
+        required
+        type="number"
+        name="goal_amount"
+        title="The total amount of money you want to save"
+        min="0"
+        max="3000000"
+      />
 
       <label class="mt-5">Interest Rate (%)</label>
-      <input required type="decimal" name="interest_rate" title="The interest rate of the savings account you are using" min="0" max="20" />
+      <input
+        value="<%= interest_rate %>"
+        required
+        type="decimal"
+        name="interest_rate"
+        title="The interest rate of the savings account you are using"
+        min="0"
+        max="20"
+      />
 
       <button
         type="submit"
@@ -53,7 +90,9 @@
       <div class="recommended-box mb-5">
         <p class="font-semibold">
           Save £<%= data[0][0] %> per month for <%= data[0][1] %> years at <%=
-          data[0][2] %>% interest to get £<%= data[0][4] %> (£<%= (parseFloat(data[0][3]) - (parseFloat(data[0][0]) * 12 * parseFloat(data[0][1]))).toFixed(2) %> gained from interest)
+          data[0][2] %>% interest to get £<%= data[0][4] %> (£<%=
+          (parseFloat(data[0][3]) - (parseFloat(data[0][0]) * 12 *
+          parseFloat(data[0][1]))).toFixed(2) %> gained from interest)
         </p>
       </div>
       <% } %>
@@ -111,8 +150,9 @@
             Save <span class="font-medium">£<%= data[i][0] %></span> per month
             for <%= data[i][1] %> <%- data[i][1] > 1 ? 'years':'year' %> at <%=
             data[i][2] %>% interest to get
-            <span class="font-medium">£<%= data[i][4] %></span> 
-            (£<%= (parseFloat(data[i][3]) - (parseFloat(data[i][0]) * 12 * parseFloat(data[i][1]))).toFixed(2) %> gained from interest)
+            <span class="font-medium">£<%= data[i][4] %></span>
+            (£<%= (parseFloat(data[i][3]) - (parseFloat(data[i][0]) * 12 *
+            parseFloat(data[i][1]))).toFixed(2) %> gained from interest)
           </p>
         </div>
         <% } %>
@@ -232,8 +272,10 @@
 
       <p class="mt-4 text-lg">
         If you saved your £<%= data[0][0] %> per month as cash instead of in a
-        savings account. After <%= data[0][1] %> years, you would have <span class="text-red-600 inline">£<%=
-        zero_interest_string %></span> instead of <span class="text-green-600 inline">£<%= data[0][4] %></span>.
+        savings account. After <%= data[0][1] %> years, you would have
+        <span class="text-red-600 inline">£<%= zero_interest_string %></span>
+        instead of
+        <span class="text-green-600 inline">£<%= data[0][4] %></span>.
       </p>
 
       <p class="mt-4 text-lg">
@@ -309,18 +351,22 @@
               case "monthly":
                 x = rows[i]
                   .getElementsByTagName("td")[1]
-                  .innerHTML.replace("£", "").replace(",", "");
+                  .innerHTML.replace("£", "")
+                  .replace(",", "");
                 y = rows[i + 1]
                   .getElementsByTagName("td")[1]
-                  .innerHTML.replace("£", "").replace(",", "");
+                  .innerHTML.replace("£", "")
+                  .replace(",", "");
                 break;
               case "total":
                 x = rows[i]
                   .getElementsByTagName("td")[2]
-                  .innerHTML.replace("£", "").replace(",", "");
+                  .innerHTML.replace("£", "")
+                  .replace(",", "");
                 y = rows[i + 1]
                   .getElementsByTagName("td")[2]
-                  .innerHTML.replace("£", "").replace(",", "");
+                  .innerHTML.replace("£", "")
+                  .replace(",", "");
                 break;
             }
 

@@ -17,16 +17,16 @@
   <div class="lg:grid grid-cols-3 gap-x-16 mt-8">
     <form name="lisa-form" onsubmit="return validateForm()" method="post" action="/lisa">
       <label>Current Age</label>
-      <input required type="number" name="age" title="Your age" min="0" max="100"/>
+      <input value="<%= age %>" required type="number" name="age" title="Your age" min="0" max="100"/>
 
       <label class="mt-5">Target Age of Purchase</label>
-      <input required type="number" name="age_of_payment" title="How old you aim to be when you want to put a deposit down for a house" min="0" max="100" />
+      <input value="<%= age_of_payment %>"  required type="number" name="age_of_payment" title="How old you aim to be when you want to put a deposit down for a house" min="0" max="100" />
 
       <label class="mt-5">Target Deposit (£)</label>
-      <input required type="number" name="goal_amount" title="The target deposit for the house" min="0" max="2000000" />
+      <input  value="<%= goal_amount %>" required type="number" name="goal_amount" title="The target deposit for the house" min="0" max="2000000" />
 
       <label class="mt-5">Account Interest Rate (%)</label>
-      <input required type="decimal" name="interest_rate" title="The interest rate of your account" min="0" max="20" />
+      <input  value="<%= interest_rate %>" required type="decimal" name="interest_rate" title="The interest rate of your account" min="0" max="20" />
 
       <button
         type="submit"
