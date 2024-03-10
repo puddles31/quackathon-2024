@@ -86,7 +86,7 @@ function numberWithCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-app.post("/formsubmit_compounding", (req, res) => {
+app.post("/compounding", (req, res) => {
   const { balance, interest_rate } = req.body;
 
   const result = 72 / interest_rate;
@@ -104,13 +104,13 @@ app.post("/formsubmit_compounding", (req, res) => {
   console.log(graphData);
 
   res.render("compounding", {
-    title: "Savings Planner",
+    title: "Compound Interest",
     graphData: graphData,
     result: result.toFixed(2),
   });
 });
 
-app.post("/formsubmit", (req, res) => {
+app.post("/child-savings", (req, res) => {
   const { age, age_of_payment, goal_amount, interest_rate } = req.body;
 
   let string_array = [];
@@ -226,7 +226,7 @@ app.post("/formsubmit", (req, res) => {
   }
 
   res.render("child-savings", {
-    title: "Savings Planner",
+    title: "Child Savings",
     data: new_string_array,
     graphData: total_graph_data_array,
     spent_instead: numberWithCommas(spent_instead),
@@ -235,7 +235,7 @@ app.post("/formsubmit", (req, res) => {
   });
 });
 
-app.post("/formsubmit_pension", (req, res) => {
+app.post("/pensions", (req, res) => {
   const {
     age,
     retirement_age,
@@ -265,12 +265,12 @@ app.post("/formsubmit_pension", (req, res) => {
   console.log(yearlyValues);
 
   res.render("pensions", {
-    title: "Pensions Planner",
+    title: "Pensions",
     graphData: yearlyValues,
   });
 });
 
-app.post("/formsubmit_lisa", (req, res) => {
+app.post("/lisa", (req, res) => {
   const { age, age_of_payment, goal_amount, interest_rate } = req.body;
 
   let string_array = [];
@@ -386,7 +386,7 @@ app.post("/formsubmit_lisa", (req, res) => {
   }
 
   res.render("lisa", {
-    title: "Savings Planner",
+    title: "LISA",
     data: new_string_array,
     graphData: total_graph_data_array,
     spent_instead: numberWithCommas(spent_instead),
