@@ -78,35 +78,29 @@
             new Chart(ctx2, {
             type: 'line',
             data: {
-                datasets: [{
-                    <% for (const i in graphData) { %>
-                        type: 'line',
-                        label: 'Test',
-                        data: [
-                            <% for (const k in graphData[i]) { %>
-                                <%= graphData[i][k] %>,
-                            <% } %>
-                        ],
-                        backgroundColor: colours[<%= i %>],
-                        borderColor: colours[<%= i %>]
-                        <% if (i < graphData.length-1) { %>
-                            }, {
-                        <% } %>
+              datasets: [{
+                  data: [
+                    <% for (const i in graphData){ %>
+                      <%= graphData[i] %>,
                     <% } %>
-                }],
+                  ],
+                  backgroundColor: colours[0],
+                  borderColor: colours[0],
+                  label: 'Pension'
+              }],
 
-                labels: [
-                    <% for (const i in graphData[0]) { %>
-                        '<%= i %>',
-                    <% } %>
-                ]
+              labels: [
+                  <% for (const i in graphData) { %>
+                      '<%= Number(i)+1 %>',
+                  <% } %>
+              ]
             },
             options: {
                 scales: {
                     x: {
                         title: {
                             display: true,
-                            text: 'Months',
+                            text: 'Years',
                             font: {
                                 size: 14
                             }
