@@ -3,14 +3,14 @@
 ### Bask (Ben, Adam, Sam, Kyle) in your Financial Independence. We believe that financial literacy and accessibility should be available to everyone. The earlier the better.
 ![Logo](https://d112y698adiu2z.cloudfront.net/photos/production/software_thumbnail_photos/002/803/856/datas/medium.png)
 
-## Inspiration
-Our inspiration was Wolfram Alpha, because it acts a very powerful and useful multi-tool for the world of Mathematics. We decided to create a similar, useful multi-tool for the world of Finance. We thought this would be a good approach to cover a range of topics and provide Financial accessibility.
-
 ## What it does
-Provides incredibly useful and easily understandable tools to show the importance of budgeting, saving, investing and choosing the correct financial strategies.
+Bask.it provides incredibly useful and easily understandable tools to show the importance of budgeting, saving, investing and choosing the correct financial strategies.
 
 ## How we built it
 We built this web application using EJS and ExpressJS. We used Github for version control, and paper and google docs to plan our ideas.
+
+## Inspiration
+Our inspiration was Wolfram Alpha, because it acts a very powerful and useful multi-tool for the world of Mathematics. We decided to create a similar, useful multi-tool for the world of Finance. We thought this would be a good approach to cover a range of topics and provide Financial accessibility.
 
 ## Challenges we ran into
 Our original idea was a little too ambitious so we decided to regroup and change our plan. We are pleased with our decision as we think we have created an even more powerful, useful and accessible tool.
